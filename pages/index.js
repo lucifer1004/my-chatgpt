@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
+import ReactMarkdown from 'react-markdown'
 import styles from "./index.module.css";
 import { v4 as uuidv4 } from "uuid";
 
@@ -44,8 +45,10 @@ export default function Home() {
 
   function onLoad(item) {
     onSave();
-    setHistory(JSON.parse(localStorage.getItem(item)));
-    setId(item);
+    setHistory((_) => {
+      setId(item);
+      return JSON.parse(localStorage.getItem(item))
+    });
   }
 
   function onExport() {
@@ -184,13 +187,9 @@ export default function Home() {
               <ul className="divide-y-2 divide-gray-500 overflow-auto">
                 {Array.from({ length: history.length / 2 }).map((_, index) => (
                   <li>
-                    <span key={history.length - 2 - index * 2}>
-                      {"❓ " + history[history.length - 2 - index * 2].content}
-                    </span>
+                    <ReactMarkdown key={id + (history.length - 2 * index - 2)} children={"❓\n" + history[history.length - 2 * index - 2].content} />
+                    <ReactMarkdown key={id + (history.length - 2 * index - 1)} children={"🤖\n" + history[history.length - 2 * index - 1].content} />
                     <br />
-                    <span key={history.length - 1 - index * 2}>
-                      {"🤖 " + history[history.length - 1 - index * 2].content}
-                    </span>
                   </li>
                 ))}
               </ul>
