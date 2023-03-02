@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
-import ReactMarkdown from 'react-markdown'
+import Markdown from "../components/Markdown";
 import styles from "./index.module.css";
 import { v4 as uuidv4 } from "uuid";
 
@@ -47,7 +47,7 @@ export default function Home() {
     onSave();
     setHistory((_) => {
       setId(item);
-      return JSON.parse(localStorage.getItem(item))
+      return JSON.parse(localStorage.getItem(item));
     });
   }
 
@@ -128,21 +128,19 @@ export default function Home() {
         <div className="flex flex-col gap-5 sm:flex-row">
           <ul className="min-w-20 divide-y-2 divide-gray-500 overflow-auto">
             {indices.map((item, index) => (
-              <>
-                <li
-                  key={index}
-                  onClick={() => onLoad(item)}
-                  style={{
-                    backgroundColor: item === id ? "#dddddd" : "white",
-                  }}
-                >
-                  {JSON.parse(localStorage.getItem(item))[0].content.substr(
-                    0,
-                    20
-                  ) + "..."}
-                </li>
+              <li
+                key={item}
+                onClick={() => onLoad(item)}
+                style={{
+                  backgroundColor: item === id ? "#dddddd" : "white",
+                }}
+              >
+                {JSON.parse(localStorage.getItem(item))[0].content.substr(
+                  0,
+                  20
+                ) + "..."}
                 {index < indices.length - 1 ? <hr /> : null}
-              </>
+              </li>
             ))}
           </ul>
 
@@ -186,9 +184,17 @@ export default function Home() {
             <div className="flex max-w-3xl items-center justify-center gap-2">
               <ul className="divide-y-2 divide-gray-500 overflow-auto">
                 {Array.from({ length: history.length / 2 }).map((_, index) => (
-                  <li>
-                    <ReactMarkdown key={id + (history.length - 2 * index - 2)} children={"❓\n" + history[history.length - 2 * index - 2].content} />
-                    <ReactMarkdown key={id + (history.length - 2 * index - 1)} children={"🤖\n" + history[history.length - 2 * index - 1].content} />
+                  <li key={history.length - 2 * index - 2}>
+                    <Markdown
+                      children={
+                        "❓\n" + history[history.length - 2 * index - 2].content
+                      }
+                    />
+                    <Markdown
+                      children={
+                        "🤖\n" + history[history.length - 2 * index - 1].content
+                      }
+                    />
                     <br />
                   </li>
                 ))}
@@ -200,10 +206,7 @@ export default function Home() {
       <footer className="flex items-center justify-center rounded-lg bg-white p-4 shadow dark:bg-gray-800">
         <span className="text-sm text-gray-500 dark:text-gray-400 sm:text-center">
           © 2023{" "}
-          <a
-            href="https://github.com/lucifer1004"
-            className="hover:underline"
-          >
+          <a href="https://github.com/lucifer1004" className="hover:underline">
             Gabriel Wu
           </a>
           . All Rights Reserved.
