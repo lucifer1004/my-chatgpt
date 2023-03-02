@@ -50,7 +50,7 @@ export default function Home() {
 
   function onExport() {
     const historyText = history
-      .map((x) => (x.role === "assistant" ? "A: " : "Q: ") + x.content)
+      .map((x, index) => (x.role === "assistant" ? "A" : "Q") + (Math.floor(index / 2) + 1) + ": " + x.content)
       .join("\n");
     alert("导出成功");
     navigator.clipboard.writeText(historyText);
