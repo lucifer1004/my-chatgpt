@@ -50,7 +50,13 @@ export default function Home() {
 
   function onExport() {
     const historyText = history
-      .map((x, index) => (x.role === "assistant" ? "A" : "Q") + (Math.floor(index / 2) + 1) + ": " + x.content)
+      .map(
+        (x, index) =>
+          (x.role === "assistant" ? "A" : "Q") +
+          (Math.floor(index / 2) + 1) +
+          ": " +
+          x.content
+      )
       .join("\n");
     alert("导出成功");
     navigator.clipboard.writeText(historyText);
@@ -138,13 +144,13 @@ export default function Home() {
           </ul>
 
           <div className="grow flex-col gap-5">
-            <div className="flex flex-col md:flex-row items-center justify-center gap-2">
+            <div className="flex flex-col items-center justify-center gap-2 md:flex-row">
               <textarea
                 type="text"
                 name="animal"
                 placeholder="在这里输入..."
                 value={animalInput}
-                className="grow max-w-3xl"
+                className="max-w-3xl grow"
                 style={{ height: "80px" }}
                 onChange={(e) => setAnimalInput(e.target.value)}
               />
@@ -192,7 +198,7 @@ export default function Home() {
           </div>
         </div>
       </main>
-      <footer className="rounded-lg bg-white p-4 shadow dark:bg-gray-800 flex items-center justify-center">
+      <footer className="flex items-center justify-center rounded-lg bg-white p-4 shadow dark:bg-gray-800">
         <span className="text-sm text-gray-500 dark:text-gray-400 sm:text-center">
           © 2023{" "}
           <a
