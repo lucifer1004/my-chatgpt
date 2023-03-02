@@ -202,7 +202,7 @@ export default function Home() {
         <span className="text-sm text-gray-500 dark:text-gray-400 sm:text-center">
           © 2023{" "}
           <a
-            href="https://cp-wiki-next.gabriel-wu.com/"
+            href="https://github.com/lucifer1004"
             className="hover:underline"
           >
             Gabriel Wu
