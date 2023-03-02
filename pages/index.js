@@ -51,7 +51,7 @@ export default function Home() {
     });
   }
 
-  function onExport() {
+  async function onExport() {
     const historyText = history
       .map(
         (x, index) =>
@@ -61,8 +61,8 @@ export default function Home() {
           x.content
       )
       .join("\n");
+    await navigator.clipboard.writeText(historyText);
     alert("导出成功");
-    navigator.clipboard.writeText(historyText);
   }
 
   async function onSubmit(event) {
@@ -144,14 +144,14 @@ export default function Home() {
             ))}
           </ul>
 
-          <div className="grow flex-col gap-5">
+          <div className="basis-50 shrink-0 grow-0 flex-col gap-5">
             <div className="flex flex-col items-center justify-center gap-2 md:flex-row">
               <textarea
                 type="text"
                 name="animal"
                 placeholder="在这里输入..."
                 value={animalInput}
-                className="max-w-3xl grow"
+                className="grow"
                 style={{ height: "80px" }}
                 onChange={(e) => setAnimalInput(e.target.value)}
               />
@@ -176,6 +176,7 @@ export default function Home() {
                 <button
                   onClick={onClick}
                   title="开始一个新对话（当前对话将被自动保存）"
+                  style={{ backgroundColor: "#a0037f" }}
                 >
                   新建
                 </button>
