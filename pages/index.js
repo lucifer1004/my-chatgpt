@@ -18,6 +18,61 @@ export default function Home() {
     }
   }, []);
 
+  async function handleSubmit() {
+    setSubmitDisabled(true);
+    try {
+      const response = await fetch("/api/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          animal: animalInput,
+          history,
+        }),
+      });
+
+      const data = await response.json();
+      if (response.status !== 200) {
+        throw (
+          data.error ||
+          new Error(`Request failed with status ${response.status}`)
+        );
+      }
+
+      const newHistory = [
+        ...history,
+        { role: "user", content: animalInput },
+        { role: "assistant", content: data.result },
+      ];
+      setHistory(newHistory);
+      setIndices((prev) => {
+        let newIndices;
+        if (prev.findIndex((x) => x === id) === -1) {
+          newIndices = [...prev, id];
+        } else {
+          newIndices = prev;
+        }
+        localStorage.setItem("my-chatgpt-indices", JSON.stringify(newIndices));
+        localStorage.setItem(id, JSON.stringify(newHistory));
+        return newIndices;
+      });
+      setAnimalInput("");
+    } catch (error) {
+      // Consider implementing your own error handling logic here
+      console.error(error);
+      alert(error.message);
+    }
+    setSubmitDisabled(false);
+  }
+
+  async function handleKeyDown(e) {
+    if (e.keyCode == 13 && e.shiftKey) {
+      await handleSubmit();
+      e.preventDefault();
+    }
+  }
+
   function onSave() {
     if (history.length === 0) {
       console.info("No history to save");
@@ -66,53 +121,8 @@ export default function Home() {
   }
 
   async function onSubmit(event) {
-    setSubmitDisabled(true);
     event.preventDefault();
-    try {
-      const response = await fetch("/api/generate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          animal: animalInput,
-          history,
-        }),
-      });
-
-      const data = await response.json();
-      if (response.status !== 200) {
-        throw (
-          data.error ||
-          new Error(`Request failed with status ${response.status}`)
-        );
-      }
-
-      const newHistory = [
-        ...history,
-        { role: "user", content: animalInput },
-        { role: "assistant", content: data.result },
-      ];
-      setHistory(newHistory);
-      setIndices((prev) => {
-        let newIndices;
-        if (prev.findIndex((x) => x === id) === -1) {
-          newIndices = [...prev, id];
-        } else {
-          newIndices = prev;
-        }
-        localStorage.setItem("my-chatgpt-indices", JSON.stringify(newIndices));
-        localStorage.setItem(id, JSON.stringify(newHistory));
-        return newIndices;
-      });
-      setAnimalInput("");
-    } catch (error) {
-      // Consider implementing your own error handling logic here
-      console.error(error);
-      alert(error.message);
-    }
-
-    setSubmitDisabled(false);
+    await handleSubmit();
   }
 
   return (
@@ -149,13 +159,14 @@ export default function Home() {
               <textarea
                 type="text"
                 name="animal"
-                placeholder="在这里输入..."
+                placeholder="在这里输入（Shift+回车快速提交）"
                 value={animalInput}
-                className="grow"
+                className="basis-2/3"
                 style={{ height: "80px" }}
                 onChange={(e) => setAnimalInput(e.target.value)}
+                onKeyDown={(e) => handleKeyDown(e)}
               />
-              <div className="margin-2 flex items-center justify-center gap-2">
+              <div className="margin-2 basis-1/3 flex items-center justify-center gap-2">
                 <button
                   onClick={onSubmit}
                   title="将当前输入的内容发送给ChatGPT"
