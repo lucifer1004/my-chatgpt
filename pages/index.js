@@ -136,7 +136,7 @@ export default function Home() {
         <img src="/dog.png" className={styles.icon} />
         <h3>My ChatGPT</h3>
         <div className="flex flex-col gap-5 sm:flex-row">
-          <ul className="min-w-20 divide-y-2 divide-gray-500 overflow-auto">
+          <ul className="min-w-20 list-none divide-y-2 divide-gray-500 overflow-auto">
             {indices.map((item, index) => (
               <li
                 key={item}
@@ -166,7 +166,7 @@ export default function Home() {
                 onChange={(e) => setAnimalInput(e.target.value)}
                 onKeyDown={(e) => handleKeyDown(e)}
               />
-              <div className="margin-2 basis-1/3 flex items-center justify-center gap-2">
+              <div className="margin-2 flex basis-1/3 items-center justify-center gap-2">
                 <button
                   onClick={onSubmit}
                   title="将当前输入的内容发送给ChatGPT"
@@ -194,7 +194,7 @@ export default function Home() {
               </div>
             </div>
             <div className="flex max-w-3xl items-center justify-center gap-2">
-              <ul className="divide-y-2 divide-gray-500 overflow-auto">
+              <ul className="list-none divide-y-2 divide-gray-500 overflow-auto">
                 {Array.from({ length: history.length / 2 }).map((_, index) => (
                   <li key={history.length - 2 * index - 2}>
                     <Markdown

@@ -29,17 +29,18 @@ function Markdown(props) {
                   PreTag="div"
                   {...props}
                 />
-                <CopyToClipboard
-                  text={String(children)}
-                >
-                  <button className="absolute flex justify-center items-center rounded bg-gray-200 hover:bg-gray-300" style={{
-                    height: "16px",
-                    width: "20px",
-                    top: "4px",
-                    right: "4px",
-                    fontSize: "14px",
-                    textAlign: "center",
-                  }}>
+                <CopyToClipboard text={String(children)}>
+                  <button
+                    className="absolute flex items-center justify-center rounded bg-gray-200 hover:bg-gray-300"
+                    style={{
+                      height: "16px",
+                      width: "20px",
+                      top: "4px",
+                      right: "4px",
+                      fontSize: "14px",
+                      textAlign: "center",
+                    }}
+                  >
                     📋
                   </button>
                 </CopyToClipboard>
