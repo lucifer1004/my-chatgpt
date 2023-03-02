@@ -107,7 +107,7 @@ export default function Home() {
   }
 
   return (
-    <div>
+    <div className="flex h-screen flex-col justify-between">
       <Head>
         <title>My ChatGPT</title>
         <link rel="icon" href="/dog.png" />
@@ -116,37 +116,29 @@ export default function Home() {
       <main className={styles.main}>
         <img src="/dog.png" className={styles.icon} />
         <h3>My ChatGPT</h3>
-        <div className="flex gap-5 flex-col sm:flex-row">
-          <div className="flex-1">
-            <ul
-              className="divide-y-2 divide-gray-500 overflow-auto min-w-20"
-            >
-              {indices.map((item, index) => (
-                <>
-                  <li
-                    key={index}
-                    onClick={() => onLoad(item)}
-                    style={{
-                      backgroundColor: item === id ? "#dddddd" : "white",
-                    }}
-                  >
-                    {JSON.parse(localStorage.getItem(item))[0].content.substr(
-                      0,
-                      20
-                    ) + "..."}
-                  </li>
-                  {index < indices.length - 1 ? <hr /> : null}
-                </>
-              ))}
-            </ul>
-          </div>
+        <div className="flex flex-col gap-5 sm:flex-row">
+          <ul className="min-w-20 divide-y-2 divide-gray-500 overflow-auto">
+            {indices.map((item, index) => (
+              <>
+                <li
+                  key={index}
+                  onClick={() => onLoad(item)}
+                  style={{
+                    backgroundColor: item === id ? "#dddddd" : "white",
+                  }}
+                >
+                  {JSON.parse(localStorage.getItem(item))[0].content.substr(
+                    0,
+                    20
+                  ) + "..."}
+                </li>
+                {index < indices.length - 1 ? <hr /> : null}
+              </>
+            ))}
+          </ul>
 
-          <div
-            className="flex-col gap-5"
-          >
-            <div
-              className="flex gap-2 align-center justify-center"
-            >
+          <div className="grow flex-col gap-5">
+            <div className="flex flex-col md:flex-row items-center justify-center gap-2">
               <textarea
                 type="text"
                 name="animal"
@@ -156,9 +148,7 @@ export default function Home() {
                 style={{ height: "80px" }}
                 onChange={(e) => setAnimalInput(e.target.value)}
               />
-              <div
-                className="flex-1 flex margin-2 gap-2 align-center justify-center"
-              >
+              <div className="margin-2 flex flex-1 items-center justify-center gap-2">
                 <button
                   onClick={onSubmit}
                   title="将当前输入的内容发送给ChatGPT"
@@ -184,10 +174,8 @@ export default function Home() {
                 </button>
               </div>
             </div>
-            <div className="align-center flex max-w-3xl justify-center gap-2">
-              <ul
-                className="divide-y-2 divide-gray-500 overflow-auto"
-              >
+            <div className="flex max-w-3xl items-center justify-center gap-2">
+              <ul className="divide-y-2 divide-gray-500 overflow-auto">
                 {Array.from({ length: history.length / 2 }).map((_, index) => (
                   <li>
                     <span key={history.length - 2 - index * 2}>
@@ -204,6 +192,18 @@ export default function Home() {
           </div>
         </div>
       </main>
+      <footer className="rounded-lg bg-white p-4 shadow dark:bg-gray-800 flex items-center justify-center">
+        <span className="text-sm text-gray-500 dark:text-gray-400 sm:text-center">
+          © 2023{" "}
+          <a
+            href="https://cp-wiki-next.gabriel-wu.com/"
+            class="hover:underline"
+          >
+            Gabriel Wu
+          </a>
+          . All Rights Reserved.
+        </span>
+      </footer>
     </div>
   );
 }
