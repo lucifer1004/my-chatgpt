@@ -144,11 +144,11 @@ export default function Home() {
                 name="animal"
                 placeholder="在这里输入..."
                 value={animalInput}
-                className="grow"
+                className="grow max-w-3xl"
                 style={{ height: "80px" }}
                 onChange={(e) => setAnimalInput(e.target.value)}
               />
-              <div className="margin-2 flex flex-1 items-center justify-center gap-2">
+              <div className="margin-2 flex items-center justify-center gap-2">
                 <button
                   onClick={onSubmit}
                   title="将当前输入的内容发送给ChatGPT"
@@ -197,7 +197,7 @@ export default function Home() {
           © 2023{" "}
           <a
             href="https://cp-wiki-next.gabriel-wu.com/"
-            class="hover:underline"
+            className="hover:underline"
           >
             Gabriel Wu
           </a>
