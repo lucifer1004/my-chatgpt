@@ -1,5 +1,7 @@
 # My ChatGPT
 
+<img width="1013" alt="Screenshot of App" src="https://user-images.githubusercontent.com/13583761/222496962-b31a9cff-8460-4a03-a168-c9ae564b8a18.png">
+
 ## Setup
 
 1. If you don’t have Node.js installed, [install it from here](https://nodejs.org/en/) (Node.js version >= 14.6.0 required)
