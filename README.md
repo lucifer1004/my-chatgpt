@@ -1,5 +1,7 @@
 # My ChatGPT
 
+<img width="1013" alt="Screenshot of App" src="https://user-images.githubusercontent.com/13583761/222496962-b31a9cff-8460-4a03-a168-c9ae564b8a18.png">
+
 ## Setup
 
 1. If you don’t have Node.js installed, [install it from here](https://nodejs.org/en/) (Node.js version >= 14.6.0 required)
@@ -16,6 +18,12 @@
 
    ```bash
    $ yarn install
+   ```
+   
+   Or if you want to use `npm`
+   
+   ```bash
+   $ npm install
    ```
 
 5. Make a copy of the example environment variables file
@@ -34,6 +42,12 @@
 
    ```bash
    $ yarn dev
+   ```
+   
+   Or use `npm`
+   
+   ```bash
+   $ npm run dev
    ```
 
 You should now be able to access the app at [http://localhost:3000](http://localhost:3000)! For the full context behind this example app, check out the [tutorial](https://beta.openai.com/docs/quickstart).
