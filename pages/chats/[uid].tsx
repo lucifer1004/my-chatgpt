@@ -89,28 +89,34 @@ export default function ChatPage() {
 
   return (
     <Layout>
-      <div className="basis-50 shrink-0 grow-0 flex-col gap-5">
-        <div className="flex max-w-5xl items-center justify-center gap-2">
-          <ul className="list-none divide-y-2 divide-gray-500 overflow-auto">
+      <div className="flex flex-col gap-5">
+        <div className="h-[calc(70vh+15px)] overflow-auto">
+          <div className="flex grow flex-col justify-center gap-2">
             {Array.from({ length: history.length / 2 }).map((_, index) => (
-              <li key={index * 2}>
-                <Markdown children={"❓\n" + history[index * 2].content} />
-                <Markdown children={"🤖\n" + history[index * 2 + 1].content} />
-                <br />
-              </li>
+              <>
+                <Markdown
+                  key={index * 2}
+                  children={history[index * 2].content}
+                />
+                <Markdown
+                  className="rounded-md bg-indigo-200 p-2 leading-relaxed dark:bg-slate-600"
+                  key={index * 2 + 1}
+                  children={history[index * 2 + 1].content}
+                />
+              </>
             ))}
-          </ul>
+          </div>
         </div>
-        <div className="sticky bottom-0 flex h-40 flex-col items-center justify-center gap-2 md:flex-row">
+        <div className="min-h-40 flex flex-col items-center justify-center gap-2 md:flex-row">
           <textarea
             name="input"
             placeholder="在这里输入（Shift+回车快速提交）"
             value={input}
-            className="h-full w-full rounded-md border-2 border-double border-slate-400 bg-gray-100 dark:bg-slate-600 md:basis-4/5"
+            className="h-full w-full rounded-md border-2 border-double border-slate-400 bg-indigo-200 dark:bg-slate-600 md:basis-4/5"
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => handleKeyDown(e)}
           />
-          <div className="margin-2 flex basis-1/5  items-center justify-center gap-2">
+          <div className="margin-2 flex basis-1/5 items-center justify-center gap-2">
             <Button
               onClick={onSubmit}
               className="flex items-center justify-center"

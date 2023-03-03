@@ -29,7 +29,10 @@ function Markdown(props) {
                   {...props}
                 />
                 <CopyToClipboard text={String(children)}>
-                  <button className="absolute top-1 right-1 flex items-center justify-center rounded bg-gray-400 p-1 text-sm text-black hover:bg-gray-700">
+                  <button
+                    title="复制到剪贴板"
+                    className="absolute top-1 right-1 flex items-center justify-center rounded bg-gray-400 p-1 text-sm text-black hover:bg-gray-700"
+                  >
                     {match[1] + "📋"}
                   </button>
                 </CopyToClipboard>
@@ -45,10 +48,20 @@ function Markdown(props) {
     },
   };
   return (
-    <ReactMarkdown
-      className="dark:xl:prose-xl-invert prose dark:prose-invert xl:prose-xl"
-      {...newProps}
-    />
+    <div className="relative m-1">
+      <ReactMarkdown
+        className="dark:xl:prose-xl-invert prose dark:prose-invert xl:prose-xl"
+        {...newProps}
+      />
+      <CopyToClipboard text={String(props.children)}>
+        <button
+          title="复制到剪贴板"
+          className="absolute top-1 right-1 flex items-center justify-center rounded bg-gray-400 p-1 text-sm text-black hover:bg-gray-700"
+        >
+          {"📋"}
+        </button>
+      </CopyToClipboard>
+    </div>
   );
 }
 

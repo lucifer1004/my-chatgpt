@@ -178,8 +178,8 @@ export default function Layout(props: { children?: React.ReactNode }) {
             </div>
           </div>
         </div>
-        <div className="flex flex-1 flex-col lg:pl-64">
-          <div className="sticky top-0 z-10 flex h-16 flex-shrink-0 bg-white shadow dark:bg-slate-800">
+        <div className="h-screen lg:pl-64">
+          <div className="sticky top-0 z-10 flex flex-shrink-0 bg-white p-2 shadow dark:bg-slate-800">
             <button
               type="button"
               className="border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 lg:hidden"
@@ -190,7 +190,7 @@ export default function Layout(props: { children?: React.ReactNode }) {
             </button>
             <div className="flex flex-1 items-center justify-center px-4">
               <img
-                className="h-8 w-auto"
+                className="h-4 w-auto sm:h-6 md:h-8"
                 src="/dog.png"
                 alt="My ChatGPT Logo"
               />
@@ -198,7 +198,7 @@ export default function Layout(props: { children?: React.ReactNode }) {
                 onClick={() => {
                   router.push("/");
                 }}
-                className="px-2 text-2xl font-semibold text-gray-900 dark:text-white"
+                className="text-md px-2 font-semibold text-gray-900 dark:text-white sm:text-xl md:text-2xl"
               >
                 My ChatGPT
               </h1>
@@ -212,14 +212,14 @@ export default function Layout(props: { children?: React.ReactNode }) {
           </div>
 
           <main>
-            <div className="py-6">
+            <div className="pt-4">
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 {props.children}
               </div>
             </div>
           </main>
 
-          <footer className="relative bottom-0 flex items-center justify-center rounded-lg p-4 dark:bg-slate-700">
+          <footer className="mt-4 flex items-center justify-center rounded-lg dark:bg-slate-700">
             <span className="text-sm text-gray-500 dark:text-gray-400 sm:text-center">
               © 2023{" "}
               <a
