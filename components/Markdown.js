@@ -24,7 +24,6 @@ function Markdown(props) {
                   children={String(children).replace(/\n$/, "")}
                   style={dark}
                   language={match[1]}
-                  wrapLongLines={true}
                   showLineNumbers={true}
                   PreTag="div"
                   {...props}
