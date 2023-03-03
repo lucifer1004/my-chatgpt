@@ -1,16 +1,15 @@
+import { ChatBubbleLeftIcon, TrashIcon } from "@heroicons/react/24/outline";
 import {
-  ChatBubbleLeftIcon,
   CheckCircleIcon,
-  TrashIcon,
-} from "@heroicons/react/24/outline";
-import { TrashIcon as TrashSolidIcon } from "@heroicons/react/24/solid";
+  TrashIcon as TrashSolidIcon,
+} from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
 import { MyChatGPTContext } from "../contexts/MyChatGPTContext";
 import { classNames, getSummary } from "../utils";
 
-export default function HistoryItem({ item, ..._restProps }) {
+export default function HistoryItem({ item }) {
   const router = useRouter();
   const { dispatch } = useContext(MyChatGPTContext);
   const [deleteState, setDeleteState] = useState(0);
@@ -39,6 +38,7 @@ export default function HistoryItem({ item, ..._restProps }) {
         />
       ) : (
         <button
+          className="mr-3 h-10 w-10 flex-shrink-0 rounded-md p-2 text-indigo-300 hover:bg-indigo-600"
           onClick={() => {
             if (deleteState === 0) {
               setDeleteState(1);
@@ -51,15 +51,9 @@ export default function HistoryItem({ item, ..._restProps }) {
           }}
         >
           {deleteState === 0 ? (
-            <TrashIcon
-              className="mr-3 h-10 w-10 flex-shrink-0 rounded-md p-2 text-indigo-300 hover:bg-indigo-600"
-              aria-hidden="true"
-            />
+            <TrashIcon aria-hidden="true" />
           ) : (
-            <TrashSolidIcon
-              className="mr-3 h-10 w-10 flex-shrink-0 rounded-md p-2 text-indigo-300 hover:bg-indigo-600"
-              aria-hidden="true"
-            />
+            <TrashSolidIcon aria-hidden="true" />
           )}
         </button>
       )}

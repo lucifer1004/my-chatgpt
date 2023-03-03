@@ -6,6 +6,7 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { materialDark as dark } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import rehypeKatex from "rehype-katex";
 import RemarkMathPlugin from "remark-math";
+import { classNames } from "../utils";
 
 function Markdown(props) {
   const newProps = {
@@ -50,13 +51,16 @@ function Markdown(props) {
   return (
     <div className="relative m-1">
       <ReactMarkdown
-        className="dark:xl:prose-xl-invert prose dark:prose-invert xl:prose-xl"
         {...newProps}
+        className={classNames(
+          newProps.className,
+          "dark:xl:prose-xl-invert prose mr-6 max-w-full dark:prose-invert xl:prose-xl"
+        )}
       />
       <CopyToClipboard text={String(props.children)}>
         <button
           title="复制到剪贴板"
-          className="absolute top-1 right-1 flex h-4 w-4 items-center justify-center rounded border-0 bg-gray-400 text-sm text-black hover:bg-gray-700"
+          className="absolute top-2 right-1 flex h-4 w-4 items-center justify-center rounded border-0 bg-gray-400 text-sm text-black hover:bg-gray-700"
         >
           📋
         </button>
