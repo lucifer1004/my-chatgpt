@@ -5,7 +5,7 @@ import styles from "./index.module.css";
 import { v4 as uuidv4 } from "uuid";
 
 export default function Home() {
-  const [animalInput, setAnimalInput] = useState("");
+  const [input, setInput] = useState("");
   const [id, setId] = useState(uuidv4());
   const [history, setHistory] = useState([]);
   const [indices, setIndices] = useState([]);
@@ -27,7 +27,7 @@ export default function Home() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          animal: animalInput,
+          animal: input,
           history,
         }),
       });
@@ -42,7 +42,7 @@ export default function Home() {
 
       const newHistory = [
         ...history,
-        { role: "user", content: animalInput },
+        { role: "user", content: input },
         { role: "assistant", content: data.result },
       ];
       setHistory(newHistory);
@@ -57,7 +57,7 @@ export default function Home() {
         localStorage.setItem(id, JSON.stringify(newHistory));
         return newIndices;
       });
-      setAnimalInput("");
+      setInput("");
     } catch (error) {
       // Consider implementing your own error handling logic here
       console.error(error);
@@ -157,13 +157,12 @@ export default function Home() {
           <div className="basis-50 shrink-0 grow-0 flex-col gap-5">
             <div className="flex flex-col items-center justify-center gap-2 md:flex-row">
               <textarea
-                type="text"
-                name="animal"
+                name="input"
                 placeholder="在这里输入（Shift+回车快速提交）"
-                value={animalInput}
+                value={input}
                 className="basis-2/3"
                 style={{ height: "80px" }}
-                onChange={(e) => setAnimalInput(e.target.value)}
+                onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => handleKeyDown(e)}
               />
               <div className="margin-2 flex basis-1/3 items-center justify-center gap-2">

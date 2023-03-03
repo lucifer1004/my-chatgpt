@@ -2,9 +2,9 @@ import React from "react";
 import ReactMarkdown from "react-markdown";
 import RemarkMathPlugin from "remark-math";
 import rehypeKatex from "rehype-katex";
-import SyntaxHighlighter from "react-syntax-highlighter";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { solarizedDark as dark } from "react-syntax-highlighter/dist/cjs/styles/prism";
+import { materialDark as dark } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import "katex/dist/katex.min.css";
 
 function Markdown(props) {
