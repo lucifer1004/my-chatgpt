@@ -55,7 +55,7 @@ function Markdown(props) {
       },
     },
   };
-  return <ReactMarkdown {...newProps} />;
+  return <ReactMarkdown className="prose xl:prose-xl" {...newProps} />;
 }
 
 export default Markdown;
