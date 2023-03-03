@@ -26,7 +26,7 @@ export default function Button({
       onClick={onClick}
       className={classNames(
         className,
-        "rounded-md bg-indigo-600 py-1.5 px-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:bg-gray-600 dark:bg-slate-200 dark:hover:bg-slate-600"
+        "rounded-md bg-indigo-600 py-1.5 px-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:bg-gray-600 dark:bg-slate-200 dark:hover:bg-slate-400 dark:disabled:bg-gray-600"
       )}
     >
       {children}
