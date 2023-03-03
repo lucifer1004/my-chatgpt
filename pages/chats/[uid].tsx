@@ -114,7 +114,7 @@ export default function ChatPage() {
             name="input"
             placeholder="在这里输入（Shift+回车快速提交）"
             value={input}
-            className="h-full w-full rounded-md border-2 border-double border-slate-400 bg-gray-100 md:basis-4/5"
+            className="h-full w-full rounded-md border-2 border-double border-slate-400 bg-gray-100 dark:bg-slate-600 md:basis-4/5"
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => handleKeyDown(e)}
           />

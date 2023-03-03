@@ -3,11 +3,14 @@ import {
   Bars3BottomLeftIcon,
   ChatBubbleLeftIcon,
   ChatBubbleLeftRightIcon,
+  MoonIcon,
+  SunIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useTheme } from "next-themes";
 import { Fragment, useContext, useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { MyChatGPTContext } from "../contexts/MyChatGPTContext";
@@ -30,6 +33,7 @@ export default function Layout(props: { children?: React.ReactNode }) {
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { state, dispatch } = useContext(MyChatGPTContext);
+  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
     dispatch({ type: "init" });
@@ -71,7 +75,7 @@ export default function Layout(props: { children?: React.ReactNode }) {
                 leaveFrom="translate-x-0"
                 leaveTo="-translate-x-full"
               >
-                <Dialog.Panel className="relative flex w-full max-w-xs flex-1 flex-col bg-indigo-400 pt-5 pb-4">
+                <Dialog.Panel className="relative flex w-full max-w-xs flex-1 flex-col bg-indigo-400 pt-5 pb-4 dark:bg-slate-800">
                   <Transition.Child
                     as={Fragment}
                     enter="ease-in-out duration-300"
@@ -132,7 +136,7 @@ export default function Layout(props: { children?: React.ReactNode }) {
         {/* Static sidebar for desktop */}
         <div className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col">
           {/* Sidebar component, swap this element with another sidebar if you like */}
-          <div className="flex flex-grow flex-col overflow-y-auto bg-indigo-400 pt-5">
+          <div className="flex flex-grow flex-col overflow-y-auto bg-indigo-400 pt-5 dark:bg-slate-800">
             <div className="mt-5 flex flex-1 flex-col">
               <nav className="flex-1 space-y-1 px-2 pb-4">
                 <button
@@ -142,7 +146,7 @@ export default function Layout(props: { children?: React.ReactNode }) {
                     dispatch({ type: "create", chatId: newId });
                     router.push(`/chats/${newId}`);
                   }}
-                  className="group flex w-full items-center justify-center rounded-md px-2 py-2 text-base font-medium text-indigo-800 hover:bg-indigo-200"
+                  className="group flex w-full items-center justify-center rounded-md px-2 py-2 text-base font-medium text-indigo-800 hover:bg-indigo-200 dark:text-slate-200"
                 >
                   <ChatBubbleLeftRightIcon
                     className="mr-4 h-6 w-6 flex-shrink-0 text-indigo-700"
@@ -176,7 +180,7 @@ export default function Layout(props: { children?: React.ReactNode }) {
           </div>
         </div>
         <div className="flex flex-1 flex-col lg:pl-64">
-          <div className="sticky top-0 z-10 flex h-16 flex-shrink-0 bg-white shadow">
+          <div className="sticky top-0 z-10 flex h-16 flex-shrink-0 bg-white shadow dark:bg-slate-800">
             <button
               type="button"
               className="border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 lg:hidden"
@@ -191,10 +195,23 @@ export default function Layout(props: { children?: React.ReactNode }) {
                 src="/dog.png"
                 alt="My ChatGPT Logo"
               />
-              <h1 className="px-2 text-2xl font-semibold text-gray-900">
+              <h1 className="px-2 text-2xl font-semibold text-gray-900 dark:text-white">
                 My ChatGPT
               </h1>
             </div>
+            <button
+              className="pr-2"
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            >
+              {theme === "dark" ? (
+                <SunIcon className="h-6 w-6 text-white" aria-hidden="true" />
+              ) : (
+                <MoonIcon
+                  className="h-6 w-6 text-slate-800"
+                  aria-hidden="true"
+                />
+              )}
+            </button>
           </div>
 
           <main>
@@ -205,7 +222,7 @@ export default function Layout(props: { children?: React.ReactNode }) {
             </div>
           </main>
 
-          <footer className="sticky bottom-0 flex items-center justify-center rounded-lg p-4 dark:bg-gray-800">
+          <footer className="sticky bottom-0 flex items-center justify-center rounded-lg p-4 dark:bg-slate-700">
             <span className="text-sm text-gray-500 dark:text-gray-400 sm:text-center">
               © 2023{" "}
               <a
