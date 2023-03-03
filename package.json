@@ -5,11 +5,13 @@
   "scripts": {
     "dev": "next dev -H 0.0.0.0",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "eslint '**/*.{js,ts,jsx,tsx,cjs,cts}' '*.{js,ts,jsx,tsx,cjs,cts}' package.json --fix"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.12",
     "@heroicons/react": "^2.0.16",
+    "immer": "^9.0.19",
     "next": "^13.1.1",
     "openai": "^3.1.0",
     "react": "^18.2.0",
@@ -30,7 +32,14 @@
     "@tailwindcss/typography": "^0.5.9",
     "@types/node": "18.14.4",
     "@types/react": "18.0.28",
+    "@types/uuid": "^9.0.1",
+    "@typescript-eslint/eslint-plugin": "^5.54.0",
+    "@typescript-eslint/parser": "^5.54.0",
     "autoprefixer": "^10.4.13",
+    "eslint": "^8.35.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
     "postcss": "^8.4.21",
     "prettier": "^2.8.4",
     "prettier-plugin-tailwindcss": "^0.2.3",
