@@ -93,17 +93,9 @@ export default function ChatPage() {
         <div className="flex max-w-5xl items-center justify-center gap-2">
           <ul className="list-none divide-y-2 divide-gray-500 overflow-auto">
             {Array.from({ length: history.length / 2 }).map((_, index) => (
-              <li key={history.length - 2 * index - 2}>
-                <Markdown
-                  children={
-                    "❓\n" + history[history.length - 2 * index - 2].content
-                  }
-                />
-                <Markdown
-                  children={
-                    "🤖\n" + history[history.length - 2 * index - 1].content
-                  }
-                />
+              <li key={index * 2}>
+                <Markdown children={"❓\n" + history[index * 2].content} />
+                <Markdown children={"🤖\n" + history[index * 2 + 1].content} />
                 <br />
               </li>
             ))}

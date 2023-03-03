@@ -3,7 +3,6 @@ import {
   Bars3BottomLeftIcon,
   ChatBubbleLeftIcon,
   ChatBubbleLeftRightIcon,
-  MoonIcon,
   SunIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
