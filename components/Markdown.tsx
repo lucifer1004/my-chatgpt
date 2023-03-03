@@ -29,18 +29,8 @@ function Markdown(props) {
                   {...props}
                 />
                 <CopyToClipboard text={String(children)}>
-                  <button
-                    className="absolute flex items-center justify-center rounded bg-gray-200 hover:bg-gray-300"
-                    style={{
-                      height: "16px",
-                      width: "20px",
-                      top: "4px",
-                      right: "4px",
-                      fontSize: "14px",
-                      textAlign: "center",
-                    }}
-                  >
-                    📋
+                  <button className="absolute top-1 right-1 flex h-4 items-center justify-center rounded bg-gray-400 text-sm text-black hover:bg-gray-700">
+                    {match[1] + "📋"}
                   </button>
                 </CopyToClipboard>
               </div>

@@ -27,7 +27,7 @@ export default function Home() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          animal: input,
+          input,
           history,
         }),
       });
