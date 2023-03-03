@@ -8,7 +8,7 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <ThemeProvider attribute="class">
       <MyChatGPTProvider>
-        <Component {...pageProps} />;
+        <Component {...pageProps} />
       </MyChatGPTProvider>
     </ThemeProvider>
   );

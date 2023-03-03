@@ -188,7 +188,12 @@ export default function Layout(props: { children?: React.ReactNode }) {
               <span className="sr-only">Open sidebar</span>
               <Bars3BottomLeftIcon className="h-6 w-6" aria-hidden="true" />
             </button>
-            <div className="flex flex-1 items-center justify-center px-4">
+            <div
+              onClick={() => {
+                router.push("/");
+              }}
+              className="flex flex-1 items-center justify-center px-4"
+            >
               <img
                 className="h-8 w-auto"
                 src="/dog.png"
