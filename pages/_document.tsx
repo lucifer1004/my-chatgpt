@@ -9,7 +9,10 @@ class MyDocument extends Document {
   render() {
     return (
       <Html className="h-full">
-        <Head />
+        <Head>
+          <title>My ChatGPT</title>
+          <link rel="icon" href="/dog.png" />
+        </Head>
         <body className="h-full bg-gray-100 dark:bg-slate-700">
           <Main />
           <NextScript />

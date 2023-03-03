@@ -40,11 +40,6 @@ export default function Layout(props: { children?: React.ReactNode }) {
 
   return (
     <>
-      <Head>
-        <title>My ChatGPT</title>
-        <link rel="icon" href="/dog.png" />
-      </Head>
-
       <div>
         <Transition.Root show={sidebarOpen} as={Fragment}>
           <Dialog
@@ -191,7 +186,7 @@ export default function Layout(props: { children?: React.ReactNode }) {
             <div className="flex flex-1 items-center justify-center px-4">
               <img
                 className="h-4 w-auto sm:h-6 md:h-8"
-                src="/dog.png"
+                src={theme === "light" ? "/dog.png" : "/dog-light.png"}
                 alt="My ChatGPT Logo"
               />
               <h1
