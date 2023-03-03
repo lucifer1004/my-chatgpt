@@ -1,6 +1,6 @@
 # My ChatGPT
 
-<img width="1013" alt="Screenshot of App" src="https://user-images.githubusercontent.com/13583761/222496962-b31a9cff-8460-4a03-a168-c9ae564b8a18.png">
+<img width="704" alt="Screenshot of App" src="https://user-images.githubusercontent.com/13583761/222596728-5c0e4d6b-1363-43aa-8e64-74a91669ec9b.png">
 
 ## Setup
 
