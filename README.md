@@ -1,6 +1,6 @@
 # My ChatGPT 
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Flucifer1004%2Fmy-chatgpt&env=OEPNAI_API_KEY&envDescription=You%20need%20to%20generate%20an%20OpenAI%20API%20key%20to%20use%20this%20project&envLink=https%3A%2F%2Fplatform.openai.com%2Faccount%2Fapi-keys&project-name=my-chatgpt&repository-name=my-chatgpt&skippable-integrations=1)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Flucifer1004%2Fmy-chatgpt&env=OPENAI_API_KEY&envDescription=You%20need%20to%20generate%20an%20OpenAI%20API%20key%20to%20use%20this%20project&envLink=https%3A%2F%2Fplatform.openai.com%2Faccount%2Fapi-keys&project-name=my-chatgpt&repository-name=my-chatgpt&skippable-integrations=1)
 
 <img width="1906" alt="Screenshot" src="https://user-images.githubusercontent.com/13583761/222665780-802f8579-5958-47c2-b138-9ec2bf9c07ea.png">
 
