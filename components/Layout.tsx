@@ -215,7 +215,7 @@ export default function Layout(props: { children?: React.ReactNode }) {
             </div>
           </main>
 
-          <footer className="sticky bottom-0 flex items-center justify-center rounded-lg p-4 dark:bg-slate-700">
+          <footer className="relative bottom-0 flex items-center justify-center rounded-lg p-4 dark:bg-slate-700">
             <span className="text-sm text-gray-500 dark:text-gray-400 sm:text-center">
               © 2023{" "}
               <a
