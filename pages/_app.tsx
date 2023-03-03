@@ -1,4 +1,5 @@
 import "../styles/globals.css";
+import { Analytics } from "@vercel/analytics/react";
 import { ThemeProvider } from "next-themes";
 import React from "react";
 import { MyChatGPTProvider } from "../contexts/MyChatGPTContext";
@@ -9,6 +10,7 @@ export default function MyApp({ Component, pageProps }) {
     <ThemeProvider attribute="class">
       <MyChatGPTProvider>
         <Component {...pageProps} />
+        <Analytics />
       </MyChatGPTProvider>
     </ThemeProvider>
   );
