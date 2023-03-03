@@ -63,8 +63,8 @@ export default function ChatPage() {
 
   async function handleKeyDown(e) {
     if (e.keyCode == 13 && e.shiftKey) {
-      await handleSubmit();
       e.preventDefault();
+      await handleSubmit();
     }
   }
 
