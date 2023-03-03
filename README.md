@@ -6,6 +6,8 @@
 
 ## Setup
 
+> If you do not want to run a server locally, you can use the `Deploy` button to deploy your chatbot website to Vercel with a few clicks.
+
 1. If you don’t have Node.js installed, [install it from here](https://nodejs.org/en/) (Node.js version >= 14.6.0 required)
 
 2. Clone this repository
