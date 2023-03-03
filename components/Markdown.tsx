@@ -57,14 +57,16 @@ function Markdown(props) {
           "dark:xl:prose-xl-invert prose mr-6 max-w-full dark:prose-invert xl:prose-xl"
         )}
       />
-      <CopyToClipboard text={String(props.children)}>
-        <button
-          title="复制到剪贴板"
-          className="absolute top-2 right-1 flex h-4 w-4 items-center justify-center rounded border-0 bg-gray-400 text-sm text-black hover:bg-gray-700"
-        >
-          📋
-        </button>
-      </CopyToClipboard>
+      {!props.disableCopy ? (
+        <CopyToClipboard text={String(props.children)}>
+          <button
+            title="复制到剪贴板"
+            className="absolute top-2 right-1 flex h-4 w-4 items-center justify-center rounded border-0 bg-gray-400 text-sm text-black hover:bg-gray-700"
+          >
+            📋
+          </button>
+        </CopyToClipboard>
+      ) : null}
     </div>
   );
 }
