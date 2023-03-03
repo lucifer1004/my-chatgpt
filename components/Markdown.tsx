@@ -44,7 +44,12 @@ function Markdown(props) {
       },
     },
   };
-  return <ReactMarkdown className="prose xl:prose-xl" {...newProps} />;
+  return (
+    <ReactMarkdown
+      className="dark:xl:prose-xl-invert prose dark:prose-invert xl:prose-xl"
+      {...newProps}
+    />
+  );
 }
 
 export default Markdown;

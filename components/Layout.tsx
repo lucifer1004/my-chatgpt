@@ -203,14 +203,7 @@ export default function Layout(props: { children?: React.ReactNode }) {
               className="pr-2"
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             >
-              {theme === "dark" ? (
-                <SunIcon className="h-6 w-6 text-white" aria-hidden="true" />
-              ) : (
-                <MoonIcon
-                  className="h-6 w-6 text-slate-800"
-                  aria-hidden="true"
-                />
-              )}
+              <SunIcon className="h-6 w-6 text-slate-400" aria-hidden="true" />
             </button>
           </div>
 
