@@ -32,7 +32,10 @@ export default async function (req, res) {
       messages: [...req.body.history, generatePrompt(input)],
       temperature: 0.6,
     });
-    console.log(completion.data.choices[0]);
+
+    // Comment them out if you do not need logging
+    console.info(input);
+    console.info(completion.data.choices[0]);
     res
       .status(200)
       .json({ result: completion.data.choices[0].message?.content });

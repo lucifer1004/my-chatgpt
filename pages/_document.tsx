@@ -10,7 +10,6 @@ class MyDocument extends Document {
     return (
       <Html className="h-full">
         <Head>
-          <title>My ChatGPT</title>
           <link rel="icon" href="/dog.png" />
         </Head>
         <body className="h-full bg-gray-100 dark:bg-slate-700">
