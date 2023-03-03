@@ -188,18 +188,18 @@ export default function Layout(props: { children?: React.ReactNode }) {
               <span className="sr-only">Open sidebar</span>
               <Bars3BottomLeftIcon className="h-6 w-6" aria-hidden="true" />
             </button>
-            <div
-              onClick={() => {
-                router.push("/");
-              }}
-              className="flex flex-1 items-center justify-center px-4"
-            >
+            <div className="flex flex-1 items-center justify-center px-4">
               <img
                 className="h-8 w-auto"
                 src="/dog.png"
                 alt="My ChatGPT Logo"
               />
-              <h1 className="px-2 text-2xl font-semibold text-gray-900 dark:text-white">
+              <h1
+                onClick={() => {
+                  router.push("/");
+                }}
+                className="px-2 text-2xl font-semibold text-gray-900 dark:text-white"
+              >
                 My ChatGPT
               </h1>
             </div>
