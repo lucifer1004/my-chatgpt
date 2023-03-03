@@ -1,32 +1,17 @@
 import { Dialog, Transition } from "@headlessui/react";
 import {
   Bars3BottomLeftIcon,
-  ChatBubbleLeftIcon,
   ChatBubbleLeftRightIcon,
   SunIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import Head from "next/head";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useTheme } from "next-themes";
 import { Fragment, useContext, useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { MyChatGPTContext } from "../contexts/MyChatGPTContext";
-import { classNames } from "../utils";
-
-function getSummary(uid) {
-  if (
-    localStorage.getItem(uid) === null ||
-    localStorage.getItem(uid) === "[]"
-  ) {
-    return "空白对话";
-  } else {
-    return (
-      JSON.parse(localStorage.getItem(uid))[0].content.substr(0, 20) + "..."
-    );
-  }
-}
+import HistoryItem from "./HistoryItem";
 
 export default function Layout(props: { children?: React.ReactNode }) {
   const router = useRouter();
@@ -103,22 +88,7 @@ export default function Layout(props: { children?: React.ReactNode }) {
                         .slice()
                         .reverse()
                         .map((item) => (
-                          <Link
-                            key={item}
-                            href={`/chats/${item}`}
-                            className={classNames(
-                              router.query.uid === item
-                                ? "bg-indigo-800 text-white"
-                                : "text-indigo-100 hover:bg-indigo-600",
-                              "group flex items-center rounded-md px-2 py-2 text-base font-medium"
-                            )}
-                          >
-                            <ChatBubbleLeftIcon
-                              className="mr-4 h-6 w-6 flex-shrink-0 text-indigo-300"
-                              aria-hidden="true"
-                            />
-                            {getSummary(item)}
-                          </Link>
+                          <HistoryItem key={item} item={item} />
                         ))}
                     </nav>
                   </div>
@@ -156,22 +126,7 @@ export default function Layout(props: { children?: React.ReactNode }) {
                   .slice()
                   .reverse()
                   .map((item) => (
-                    <Link
-                      key={item}
-                      href={`/chats/${item}`}
-                      className={classNames(
-                        router.query.uid === item
-                          ? "bg-indigo-800 text-white"
-                          : "text-indigo-100 hover:bg-indigo-600",
-                        "group flex items-center rounded-md px-2 py-2 text-sm font-medium"
-                      )}
-                    >
-                      <ChatBubbleLeftIcon
-                        className="mr-3 h-6 w-6 flex-shrink-0 text-indigo-300"
-                        aria-hidden="true"
-                      />
-                      {getSummary(item)}
-                    </Link>
+                    <HistoryItem key={item} item={item} />
                   ))}
               </nav>
             </div>

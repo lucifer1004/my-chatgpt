@@ -91,19 +91,20 @@ export default function ChatPage() {
     <Layout>
       <div className="flex flex-col gap-5">
         <div className="h-[calc(70vh+15px)] overflow-auto">
-          <div className="flex grow flex-col justify-center gap-2">
+          <div className="flex flex-col justify-center gap-2">
             {Array.from({ length: history.length / 2 }).map((_, index) => (
-              <>
+              <div key={uid + "-d-" + index.toString()}>
                 <Markdown
+                  className="p-1"
                   key={uid + "-" + (index * 2).toString()}
                   children={history[index * 2].content}
                 />
                 <Markdown
-                  className="rounded-md bg-indigo-200 p-2 leading-relaxed dark:bg-slate-600"
+                  className="rounded-md bg-indigo-200 p-1 leading-relaxed dark:bg-slate-600"
                   key={uid + "-" + (index * 2 + 1).toString()}
                   children={history[index * 2 + 1].content}
                 />
-              </>
+              </div>
             ))}
           </div>
         </div>

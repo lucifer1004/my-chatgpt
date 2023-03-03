@@ -62,6 +62,19 @@ const reducer = (state: MyChatGPTState, action: MyChatGPTAction) => {
         }
       });
 
+    case "delete":
+      localStorage.removeItem(action.chatId);
+      const remainingIndices = state.indices.filter(
+        (index) => index !== action.chatId
+      );
+      localStorage.setItem(
+        "my-chatgpt-indices",
+        JSON.stringify(remainingIndices)
+      );
+      return produce(state, (draft) => {
+        draft.indices = remainingIndices;
+      });
+
     default:
       return state;
   }
