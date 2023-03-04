@@ -49,7 +49,7 @@ export default async function (req, res) {
     const completion = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
       messages,
-      temperature: 0.6,
+      temperature: parseFloat(req.body.temperature) || 0.6,
     });
 
     // Comment them out if you do not need logging

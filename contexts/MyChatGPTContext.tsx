@@ -1,14 +1,21 @@
 import produce from "immer";
 import React, { createContext, useReducer } from "react";
+import {
+  DEFAULT_TEMPERATURE,
+  MAXIMUM_TEMPERATURE,
+  MINIMUM_TEMPERATURE,
+} from "../constants";
 
 interface MyChatGPTState {
   inited: boolean;
+  temperature: number;
   indices: string[];
 }
 
 export interface MyChatGPTAction {
   type: string;
   chatId?: string;
+  temperature?: number;
 }
 
 interface MyChatGPTReducer {
@@ -18,6 +25,7 @@ interface MyChatGPTReducer {
 
 const initialState = (): MyChatGPTState => ({
   inited: false,
+  temperature: DEFAULT_TEMPERATURE,
   indices: [],
 });
 
@@ -73,6 +81,17 @@ const reducer = (state: MyChatGPTState, action: MyChatGPTAction) => {
       );
       return produce(state, (draft) => {
         draft.indices = remainingIndices;
+      });
+
+    case "set-temperature":
+      return produce(state, (draft) => {
+        draft.temperature = Math.max(
+          MINIMUM_TEMPERATURE,
+          Math.min(
+            MAXIMUM_TEMPERATURE,
+            action.temperature || DEFAULT_TEMPERATURE
+          )
+        );
       });
 
     default:

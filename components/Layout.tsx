@@ -1,7 +1,8 @@
-import { Dialog, Transition } from "@headlessui/react";
+import { Dialog, Menu, Transition } from "@headlessui/react";
 import {
   Bars3BottomLeftIcon,
   ChatBubbleLeftRightIcon,
+  Cog8ToothIcon,
   SunIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
@@ -11,6 +12,7 @@ import { useRouter } from "next/router";
 import { useTheme } from "next-themes";
 import { Fragment, useContext, useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { MAXIMUM_TEMPERATURE, MINIMUM_TEMPERATURE } from "../constants";
 import { MyChatGPTContext } from "../contexts/MyChatGPTContext";
 import HistoryItem from "./HistoryItem";
 
@@ -160,12 +162,67 @@ export default function Layout(props: { children?: React.ReactNode }) {
                 My ChatGPT
               </h1>
             </div>
+
             <button
-              className="pr-2"
+              className="flex items-center justify-center rounded-full pr-2"
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             >
-              <SunIcon className="h-6 w-6 text-slate-400" aria-hidden="true" />
+              <SunIcon className="h-6 w-6 text-slate-400 " aria-hidden="true" />
             </button>
+
+            <Menu as="div" className="relative ml-3 flex">
+              <Menu.Button className="flex max-w-xs items-center rounded-full bg-white text-sm dark:bg-slate-800">
+                <span className="sr-only">设置</span>
+                <Cog8ToothIcon
+                  className="h-6 w-6 text-slate-400"
+                  aria-hidden="true"
+                />
+              </Menu.Button>
+              <Transition
+                as={Fragment}
+                enter="transition ease-out duration-100"
+                enterFrom="transform opacity-0 scale-95"
+                enterTo="transform opacity-100 scale-100"
+                leave="transition ease-in duration-75"
+                leaveFrom="transform opacity-100 scale-100"
+                leaveTo="transform opacity-0 scale-95"
+              >
+                <Menu.Items className="absolute right-0 z-10 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-gray-700">
+                  <Menu.Item key="temperature" as="div" className="p-2">
+                    <label
+                      htmlFor="temperature-range"
+                      className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                    >
+                      <span title="模型温度会影响结果的随机性，取值范围为0.0到2.0（但超过1.2时回答基本不可用）。数值越小，模型越确定；数值越大，模型越随机。">
+                        模型温度：{state.temperature}
+                      </span>
+                    </label>
+                    <input
+                      id="temperature-range"
+                      type="range"
+                      value={state.temperature}
+                      min={MINIMUM_TEMPERATURE}
+                      max={MAXIMUM_TEMPERATURE}
+                      step={0.05}
+                      onChange={(e) => {
+                        const targetTemperature = Math.max(
+                          MINIMUM_TEMPERATURE,
+                          Math.min(
+                            MAXIMUM_TEMPERATURE,
+                            parseFloat(e.target.value)
+                          )
+                        );
+                        dispatch({
+                          type: "set-temperature",
+                          temperature: targetTemperature,
+                        });
+                      }}
+                      className="h-2 w-full cursor-pointer rounded-lg bg-gray-200 dark:bg-slate-600"
+                    />
+                  </Menu.Item>
+                </Menu.Items>
+              </Transition>
+            </Menu>
           </div>
 
           <main>

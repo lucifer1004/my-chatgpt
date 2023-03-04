@@ -17,7 +17,7 @@ export default function ChatPage() {
   const [input, setInput] = useState("");
   const [history, setHistory] = useState([]);
   const [submitDisabled, setSubmitDisabled] = useState(false);
-  const { dispatch } = useContext(MyChatGPTContext);
+  const { state, dispatch } = useContext(MyChatGPTContext);
 
   useEffect(() => {
     setHistory(JSON.parse(localStorage.getItem(uid as string) || "[]"));
@@ -34,6 +34,7 @@ export default function ChatPage() {
         body: JSON.stringify({
           input,
           history,
+          temperature: state.temperature,
         }),
       });
 
