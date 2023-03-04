@@ -5,13 +5,14 @@ import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { materialDark as dark } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import rehypeKatex from "rehype-katex";
+import remarkGfm from 'remark-gfm';
 import RemarkMathPlugin from "remark-math";
 import { classNames } from "../utils";
 
 function Markdown(props) {
   const newProps = {
     ...props,
-    remarkPlugins: [RemarkMathPlugin],
+    remarkPlugins: [RemarkMathPlugin, remarkGfm],
     rehypePlugins: [rehypeKatex],
     components: {
       ...props.components,
