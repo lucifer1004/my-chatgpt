@@ -59,7 +59,7 @@ export default function Layout(props: { children?: React.ReactNode }) {
                 leaveFrom="translate-x-0"
                 leaveTo="-translate-x-full"
               >
-                <Dialog.Panel className="relative flex w-full max-w-xs flex-1 flex-col bg-indigo-400 pt-5 pb-4 dark:bg-slate-800">
+                <Dialog.Panel className="relative flex w-full max-w-[260px] flex-1 flex-col bg-indigo-400 pt-5 pb-4 dark:bg-slate-800">
                   <Transition.Child
                     as={Fragment}
                     enter="ease-in-out duration-300"
