@@ -1,2 +1,2 @@
 [template.environment]
-OPENAI_API_TOKEN = "change me for your OPENAI API Key"
+OPENAI_API_KEY = "change me for your OPENAI API Key"
