@@ -6,6 +6,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import Head from "next/head";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useTheme } from "next-themes";
 import { Fragment, useContext, useEffect, useState } from "react";
@@ -143,9 +144,11 @@ export default function Layout(props: { children?: React.ReactNode }) {
               <Bars3BottomLeftIcon className="h-6 w-6" aria-hidden="true" />
             </button>
             <div className="flex flex-1 items-center justify-center px-4">
-              <img
+              <Image
                 className="h-4 w-auto sm:h-6 md:h-8"
                 src={theme === "dark" ? "/dog-light.png" : "/dog.png"}
+                width={134}
+                height={126}
                 alt="My ChatGPT Logo"
               />
               <h1
