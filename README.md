@@ -8,10 +8,10 @@
 
 > If you do not want to run a server locally, you can use the `Deploy` button to deploy your chatbot website to Vercel (or Netlify) with a few clicks. After deployment, you can refer to [Vercel](https://vercel.com/docs/concepts/projects/domains/add-a-domain) or [Netlify](https://docs.netlify.com/domains-https/custom-domains/) to add a custom domain.
 >
-> Current limits of Vercel/Netlify deployment:
+> Known limits of Vercel/Netlify deployment:
 >
 > - Functions have a time limit of 10 s for Free tier, but the OpenAI API sometimes cannot respond within 10 s. In that case, you would not get the response. You can upgrade to Pro tier to increase the time limit to 60 s, which should be more than enough.
-> - Deployments are public to all by default, which means anyone can use your API key if they have your domain name. You can upgrade to Pro tier to add a basic password authentication.
+> - Deployments are public to all by default, which means anyone can use your API key if they have your domain name. You can upgrade to Pro tier to add a basic password authentication. For Vercel, you can also choose to use preview (instead of production) deployments only, and enable `Protect Preview Deployments` to allow only your Vercel team members to visit the site.
 
 1. If you don’t have Node.js installed, [install it from here](https://nodejs.org/en/) (Node.js version >= 14.6.0 required)
 
