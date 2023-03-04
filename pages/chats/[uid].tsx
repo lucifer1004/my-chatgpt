@@ -1,10 +1,12 @@
 import {
   ChatBubbleLeftRightIcon,
+  ChevronDoubleDownIcon,
+  ChevronDoubleUpIcon,
   ClipboardDocumentIcon,
   PaperAirplaneIcon,
 } from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Button from "../../components/Button";
 import Layout from "../../components/Layout";
@@ -18,10 +20,30 @@ export default function ChatPage() {
   const [history, setHistory] = useState([]);
   const [submitDisabled, setSubmitDisabled] = useState(false);
   const { state, dispatch } = useContext(MyChatGPTContext);
+  const chatListTop = useRef(null);
+  const chatListBottom = useRef(null);
+
+  function scrollDown() {
+    chatListBottom.current.scrollIntoView({
+      behavior: "smooth",
+      alignToTop: false,
+    });
+  }
+
+  function scrollUp() {
+    chatListTop.current.scrollIntoView({
+      behavior: "smooth",
+      alignToTop: true,
+    });
+  }
 
   useEffect(() => {
     setHistory(JSON.parse(localStorage.getItem(uid as string) || "[]"));
   }, [uid]);
+
+  useEffect(() => {
+    scrollDown();
+  }, [history]);
 
   async function handleSubmit() {
     setSubmitDisabled(true);
@@ -59,6 +81,7 @@ export default function ChatPage() {
       console.error(error);
       alert(error.message);
     }
+
     setSubmitDisabled(false);
   }
 
@@ -93,6 +116,7 @@ export default function ChatPage() {
       <div className="flex flex-col gap-5">
         <div className="h-[calc(70vh+15px)] overflow-auto">
           <div className="flex flex-col justify-center gap-2">
+            <div key="chat-list-top" ref={chatListTop}></div>
             {Array.from({ length: history.length / 2 }).map((_, index) => (
               <div key={uid + "-d-" + index.toString()}>
                 <Markdown
@@ -107,6 +131,7 @@ export default function ChatPage() {
                 />
               </div>
             ))}
+            <div key="chat-list-bottom" ref={chatListBottom}></div>
           </div>
         </div>
         <div className="min-h-40 flex flex-col items-center justify-center gap-2 md:flex-row">
@@ -126,6 +151,18 @@ export default function ChatPage() {
               disabled={submitDisabled}
             >
               <PaperAirplaneIcon
+                className="h-6 text-indigo-300"
+                aria-hidden="true"
+              />
+            </Button>
+            <Button onClick={scrollUp} title="滚动到顶部">
+              <ChevronDoubleUpIcon
+                className="h-6 text-indigo-300"
+                aria-hidden="true"
+              />
+            </Button>
+            <Button onClick={scrollDown} title="滚动到底部">
+              <ChevronDoubleDownIcon
                 className="h-6 text-indigo-300"
                 aria-hidden="true"
               />
