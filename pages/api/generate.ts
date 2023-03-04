@@ -1,4 +1,5 @@
-import { Configuration, OpenAIApi } from "openai";
+import { encode } from "gpt-3-encoder";
+import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from "openai";
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -27,9 +28,27 @@ export default async function (req, res) {
   }
 
   try {
+    // In case the input is too long, we will only use the last 4096 tokens.
+    const messages: ChatCompletionRequestMessage[] = [generatePrompt(input)];
+    let tokenCount = encode(input).length;
+    for (let i = req.body.history.length - 1; i >= 0; i--) {
+      const token = encode(req.body.history[i].content).length;
+      if (tokenCount + token > 4096) {
+        console.warn(
+          `Input needs to be truncated. The first ${
+            i + 1
+          } messages are discarded.`
+        );
+        break;
+      }
+      messages.push(req.body.history[i]);
+      tokenCount += token;
+    }
+    messages.reverse();
+
     const completion = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
-      messages: [...req.body.history, generatePrompt(input)],
+      messages,
       temperature: 0.6,
     });
 
@@ -55,7 +74,7 @@ export default async function (req, res) {
   }
 }
 
-function generatePrompt(question) {
+function generatePrompt(question: string): ChatCompletionRequestMessage {
   return {
     role: "user",
     content: question,
