@@ -6,7 +6,13 @@
     "dev": "next dev -H 0.0.0.0",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint '**/*.{js,ts,jsx,tsx,cjs,cts}' '*.{js,ts,jsx,tsx,cjs,cts}' package.json --fix"
+    "lint": "eslint '**/*.{js,ts,jsx,tsx,cjs,cts}' '*.{js,ts,jsx,tsx,cjs,cts}' package.json --fix",
+    "lint-staged": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx,json,cjs,cts}": [
+      "eslint --fix"
+    ]
   },
   "dependencies": {
     "@headlessui/react": "^1.7.12",
@@ -45,6 +51,8 @@
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-simple-import-sort": "^10.0.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.1.2",
     "postcss": "^8.4.21",
     "prettier": "^2.8.4",
     "prettier-plugin-tailwindcss": "^0.2.3",
