@@ -16,6 +16,7 @@ export interface MyChatGPTAction {
   type: string;
   chatId?: string;
   temperature?: number;
+  indices?: string[];
 }
 
 interface MyChatGPTReducer {
@@ -81,6 +82,16 @@ const reducer = (state: MyChatGPTState, action: MyChatGPTAction) => {
       );
       return produce(state, (draft) => {
         draft.indices = remainingIndices;
+      });
+
+    case "import":
+      return produce(state, (draft) => {
+        draft.indices = action.indices || [];
+      });
+
+    case "clear":
+      return produce(state, (draft) => {
+        draft.indices = [];
       });
 
     case "set-temperature":
