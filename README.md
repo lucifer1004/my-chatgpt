@@ -1,17 +1,17 @@
 # My ChatGPT 
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Flucifer1004%2Fmy-chatgpt&env=OPENAI_API_KEY&envDescription=You%20need%20to%20generate%20an%20OpenAI%20API%20key%20to%20use%20this%20project&envLink=https%3A%2F%2Fplatform.openai.com%2Faccount%2Fapi-keys&project-name=my-chatgpt&repository-name=my-chatgpt&skippable-integrations=1)
+[![Deploy to Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Flucifer1004%2Fmy-chatgpt&env=OPENAI_API_KEY&envDescription=You%20need%20to%20generate%20an%20OpenAI%20API%20key%20to%20use%20this%20project&envLink=https%3A%2F%2Fplatform.openai.com%2Faccount%2Fapi-keys&project-name=my-chatgpt&repository-name=my-chatgpt&skippable-integrations=1) [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/lucifer1004/my-chatgpt)
 
 <img width="1906" alt="Screenshot" src="https://user-images.githubusercontent.com/13583761/222665780-802f8579-5958-47c2-b138-9ec2bf9c07ea.png">
 
 ## Setup
 
-> If you do not want to run a server locally, you can use the `Deploy` button to deploy your chatbot website to Vercel with a few clicks. After deployment, you can refer to this [doc](https://vercel.com/docs/concepts/projects/domains/add-a-domain) to add a custom domain.
-> 
-> Current limits of Vercel deployment:
-> 
-> - Vercel functions have a time limit of 10 s for Hobby (free) tier, but the OpenAI API sometimes cannot respond within 10 s. In that case, you would not get the response. You can upgrade to Pro tier to increase the time limit to 60 s, which should be more than enough.
-> - Vercel deployments are public to all by default, which means anyone can use your API key if they have your domain name. You can upgrade to Pro tier to add a basic password authentication.
+> If you do not want to run a server locally, you can use the `Deploy` button to deploy your chatbot website to Vercel (or Netlify) with a few clicks. After deployment, you can refer to [Vercel](https://vercel.com/docs/concepts/projects/domains/add-a-domain) or [Netlify](https://docs.netlify.com/domains-https/custom-domains/) to add a custom domain.
+>
+> Current limits of Vercel/Netlify deployment:
+>
+> - Functions have a time limit of 10 s for Free tier, but the OpenAI API sometimes cannot respond within 10 s. In that case, you would not get the response. You can upgrade to Pro tier to increase the time limit to 60 s, which should be more than enough.
+> - Deployments are public to all by default, which means anyone can use your API key if they have your domain name. You can upgrade to Pro tier to add a basic password authentication.
 
 1. If you don’t have Node.js installed, [install it from here](https://nodejs.org/en/) (Node.js version >= 14.6.0 required)
 

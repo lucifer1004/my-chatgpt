@@ -1,0 +1,2 @@
+[template.environment]
+OPENAI_API_TOKEN = "change me for your OPENAI API Key"
