@@ -16,11 +16,13 @@ import History from "./History";
 
 export default function Layout(props: { children?: React.ReactNode }) {
   const router = useRouter();
+  const [mounted, setMounted] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { state, dispatch } = useContext(MyChatGPTContext);
   const { theme, setTheme } = useTheme();
 
   useEffect(() => {
+    setMounted(true);
     dispatch({ type: "init" });
   }, []);
 
@@ -111,13 +113,17 @@ export default function Layout(props: { children?: React.ReactNode }) {
               <Bars3BottomLeftIcon className="h-6 w-6" aria-hidden="true" />
             </button>
             <div className="flex flex-1 items-center justify-center px-4">
-              <Image
-                className="h-4 w-auto sm:h-6 md:h-8"
-                src={theme === "dark" ? "/dog-light.png" : "/dog.png"}
-                width={134}
-                height={126}
-                alt="My ChatGPT Logo"
-              />
+              {mounted ? (
+                <Image
+                  className="h-4 w-4 sm:h-6 sm:w-6 md:h-8 md:w-8 "
+                  src={theme === "dark" ? "/dog-light.png" : "/dog.png"}
+                  width={134}
+                  height={126}
+                  alt="My ChatGPT Logo"
+                />
+              ) : (
+                <div className="h-4 w-4 sm:h-6 sm:w-6 md:h-8 md:w-8" />
+              )}
               <h1
                 onClick={() => {
                   router.push("/");

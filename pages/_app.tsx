@@ -7,7 +7,7 @@ import { MyChatGPTProvider } from "../contexts/MyChatGPTContext";
 // This default export is required in a new `pages/_app.js` file.
 export default function MyApp({ Component, pageProps }) {
   return (
-    <ThemeProvider attribute="class">
+    <ThemeProvider attribute="class" defaultTheme="dark">
       <MyChatGPTProvider>
         <Component {...pageProps} />
         <Analytics />

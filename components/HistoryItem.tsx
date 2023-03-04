@@ -15,7 +15,7 @@ export default function HistoryItem({ item }) {
   const [deleteState, setDeleteState] = useState(0);
 
   return (
-    <div className="flex gap-1">
+    <div className="flex items-center justify-center gap-1">
       <Link
         href={`/chats/${item}`}
         className={classNames(
@@ -26,19 +26,19 @@ export default function HistoryItem({ item }) {
         )}
       >
         <ChatBubbleLeftIcon
-          className="mr-1 h-6 w-6 flex-shrink-0 text-indigo-300"
+          className="mr-1 h-4 w-4 flex-shrink-0 text-indigo-300"
           aria-hidden="true"
         />
         {getSummary(item)}
       </Link>
       {router.query.uid === item ? (
         <CheckCircleIcon
-          className="mr-3 h-10 w-10 flex-shrink-0 rounded-md p-2 text-indigo-300"
+          className="h-6 w-6 flex-shrink-0 rounded-md p-1 text-indigo-300"
           aria-hidden="true"
         />
       ) : (
         <button
-          className="mr-3 h-10 w-10 flex-shrink-0 rounded-md p-2 text-indigo-300 hover:bg-indigo-600"
+          className="h-6 w-6 flex-shrink-0 rounded-md p-1 text-indigo-300 hover:text-indigo-600"
           onClick={() => {
             if (deleteState === 0) {
               setDeleteState(1);
