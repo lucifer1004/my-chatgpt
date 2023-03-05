@@ -50,7 +50,7 @@ function Markdown(props) {
     },
   };
   return (
-    <div className="relative m-1">
+    <div className="m-1">
       <ReactMarkdown
         {...newProps}
         className={classNames(

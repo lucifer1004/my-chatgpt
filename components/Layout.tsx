@@ -32,7 +32,7 @@ export default function Layout(props: { children?: React.ReactNode }) {
         <title>My ChatGPT</title>
       </Head>
 
-      <div className="overflow-hidden">
+      <div>
         <Transition.Root show={sidebarOpen} as={Fragment}>
           <Dialog
             as="div"
@@ -198,7 +198,7 @@ export default function Layout(props: { children?: React.ReactNode }) {
 
           <main className="grow">
             <div className="pt-4">
-              <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              <div className="mx-auto max-w-7xl px-4 overflow-y-hidden sm:px-6 lg:px-8">
                 {props.children}
               </div>
             </div>
