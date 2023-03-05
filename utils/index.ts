@@ -1,3 +1,45 @@
+export async function wrappedReadClipboard() {
+  if (typeof navigator.clipboard === "undefined") {
+    const textArea = document.createElement("textarea");
+    textArea.value = "";
+    textArea.style.position = "fixed";
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+
+    let historyStr: string;
+    if (document.execCommand("paste")) {
+      historyStr = textArea.value;
+    } else {
+      // Use prompt as a fallback
+      historyStr = window.prompt("请将需要导入的历史记录粘贴在这里：");
+    }
+    document.body.removeChild(textArea);
+    return historyStr;
+  } else {
+    return await navigator.clipboard.readText();
+  }
+}
+
+export async function wrappedWriteClipboard(str: string) {
+  if (typeof navigator.clipboard === "undefined") {
+    const textArea = document.createElement("textarea");
+    textArea.value = str;
+    textArea.style.position = "fixed";
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+
+    const success = document.execCommand("copy");
+    if (!success) {
+      throw new Error("Failed to write to clipboard.");
+    }
+    document.body.removeChild(textArea);
+  } else {
+    return await navigator.clipboard.writeText(str);
+  }
+}
+
 export function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
@@ -29,12 +71,12 @@ export async function exportHistory() {
     const messages = localStorage.getItem(index) || "[]";
     history.push({ index, messages });
   }
-  await navigator.clipboard.writeText(JSON.stringify(history));
+  await wrappedWriteClipboard(JSON.stringify(history));
 }
 
 export async function importHistory() {
   try {
-    const historyStr = await navigator.clipboard.readText();
+    const historyStr = await wrappedReadClipboard();
     const history: HistoryRecord[] = JSON.parse(historyStr);
     const indices = JSON.parse(
       localStorage.getItem("my-chatgpt-indices") || "[]"

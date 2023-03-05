@@ -12,6 +12,7 @@ import Button from "../../components/Button";
 import Layout from "../../components/Layout";
 import Markdown from "../../components/Markdown";
 import { MyChatGPTContext } from "../../contexts/MyChatGPTContext";
+import { wrappedWriteClipboard } from "../../utils";
 
 export default function ChatPage() {
   const router = useRouter();
@@ -102,7 +103,7 @@ export default function ChatPage() {
           x.content
       )
       .join("\n");
-    await navigator.clipboard.writeText(historyText);
+    await wrappedWriteClipboard(historyText);
     alert("导出成功");
   }
 

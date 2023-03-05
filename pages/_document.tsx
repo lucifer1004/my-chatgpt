@@ -10,6 +10,13 @@ class MyDocument extends Document {
     return (
       <Html className="h-full">
         <Head>
+          {process.env.NODE_ENV === "development" ? (
+            <>
+              <script defer src="//cdn.jsdelivr.net/npm/eruda"></script>
+              <script defer src="/eruda.js"></script>
+            </>
+          ) : null}
+
           <link rel="icon" href="/dog.png" />
         </Head>
         <body className="h-full bg-gray-100 dark:bg-slate-700">
