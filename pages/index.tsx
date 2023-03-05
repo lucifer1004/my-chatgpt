@@ -23,7 +23,14 @@ My ChatGPT是一款基于OpenAI的ChatGPT API开发的个人聊天机器人站�
 
 My ChatGPT的作者[Gabriel Wu](https://github.com/lucifer1004)已将源代码以MIT协议开源在[GitHub](https://github.com/lucifer1004/my-chatgpt)上，这意味着您可以自由地修改和分发代码，以满足您的需求。
 
-如果您正在寻找一个简单易用的个人聊天机器人站点，那么My ChatGPT绝对是您的不二之选。立即获取API Key，开始构建您的聊天机器人站点吧！`}
+如果您正在寻找一个简单易用的个人聊天机器人站点，那么My ChatGPT绝对是您的不二之选。立即获取API Key，开始构建您的聊天机器人站点吧！
+
+现在，你可以：
+
+- [使用Unsplash API获取随机图片](/demos/unsplash)
+
+或者：
+`}
           />
           <Button
             onClick={() => {
@@ -31,8 +38,8 @@ My ChatGPT的作者[Gabriel Wu](https://github.com/lucifer1004)已将源代码�
               dispatch({ type: "create", chatId: newId });
               router.push(`/chats/${newId}`);
             }}
-            className="mt-5 flex w-full items-center justify-center dark:text-slate-600 lg:hidden"
-            title="开始一个新对话（当前对话将被自动保存）"
+            className="mt-5 flex w-full items-center justify-center dark:text-slate-600"
+            title="开始一个新对话"
           >
             <ChatBubbleLeftRightIcon
               className="h-6 text-indigo-300"

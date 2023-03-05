@@ -54,8 +54,8 @@ function Markdown(props) {
       <ReactMarkdown
         {...newProps}
         className={classNames(
-          newProps.className,
-          "dark:xl:prose-xl-invert prose mr-6 max-w-full dark:prose-invert xl:prose-xl"
+          "dark:xl:prose-xl-invert prose mr-6 max-w-full dark:prose-invert xl:prose-xl",
+          newProps.className
         )}
       />
       {!props.disableCopy ? (
