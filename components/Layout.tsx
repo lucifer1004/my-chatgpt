@@ -32,7 +32,7 @@ export default function Layout(props: { children?: React.ReactNode }) {
         <title>My ChatGPT</title>
       </Head>
 
-      <div>
+      <div className="overflow-hidden">
         <Transition.Root show={sidebarOpen} as={Fragment}>
           <Dialog
             as="div"
@@ -102,8 +102,8 @@ export default function Layout(props: { children?: React.ReactNode }) {
             <History />
           </div>
         </div>
-        <div className="h-screen lg:pl-64">
-          <div className="sticky top-0 z-10 flex flex-shrink-0 bg-white p-2 shadow dark:bg-slate-800">
+        <div className="flex h-screen flex-col lg:pl-64 ">
+          <div className="sticky top-0 z-10 flex h-12 bg-white p-2 shadow dark:bg-slate-800">
             <button
               type="button"
               className="border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 lg:hidden"
@@ -196,7 +196,7 @@ export default function Layout(props: { children?: React.ReactNode }) {
             </Menu>
           </div>
 
-          <main>
+          <main className="grow">
             <div className="pt-4">
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 {props.children}
@@ -204,7 +204,7 @@ export default function Layout(props: { children?: React.ReactNode }) {
             </div>
           </main>
 
-          <footer className="mt-4 flex items-center justify-center rounded-lg dark:bg-slate-700">
+          <footer className="m-0 flex h-12 shrink-0 grow-0 items-center justify-center rounded-lg p-0 dark:bg-slate-700">
             <span className="text-sm text-gray-500 dark:text-gray-400 sm:text-center">
               © 2023{" "}
               <a
