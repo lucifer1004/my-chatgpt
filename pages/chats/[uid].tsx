@@ -5,8 +5,9 @@ import {
   ClipboardDocumentIcon,
   PaperAirplaneIcon,
 } from "@heroicons/react/24/outline";
+import { useInViewport } from "ahooks";
 import { useRouter } from "next/router";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Button from "../../components/Button";
 import Layout from "../../components/Layout";
@@ -23,6 +24,10 @@ export default function ChatPage() {
   const { state, dispatch } = useContext(MyChatGPTContext);
   const chatListTop = useRef(null);
   const chatListBottom = useRef(null);
+  const trimmedInput = useMemo(() => input.trim(), [input]);
+  const [_chatListTopInViewport, chatListTopRatio] = useInViewport(chatListTop);
+  const [_chatListBottomInViewport, chatListBottomRatio] =
+    useInViewport(chatListBottom);
 
   function scrollDown() {
     chatListBottom.current.scrollIntoView({
@@ -145,38 +150,39 @@ export default function ChatPage() {
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => handleKeyDown(e)}
           />
-          <div className="margin-2 flex basis-1/5 items-center justify-center gap-2">
+          <div className="margin-2 flex basis-1/5 items-center justify-center gap-2 ">
             <Button
               onClick={onSubmit}
-              className="flex items-center justify-center"
+              className="flex items-center justify-center text-indigo-300 disabled:cursor-not-allowed hover:text-indigo-600 disabled:hover:text-indigo-300 dark:text-slate-400 dark:hover:text-slate-100 dark:disabled:hover:text-slate-400"
               title="将当前输入的内容发送给ChatGPT"
-              disabled={submitDisabled}
+              disabled={submitDisabled || trimmedInput.length === 0}
             >
-              <PaperAirplaneIcon
-                className="h-6 text-indigo-300 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-slate-100"
-                aria-hidden="true"
-              />
+              <PaperAirplaneIcon className="h-6" aria-hidden="true" />
             </Button>
-            <Button
-              className="absolute bottom-[70vh] right-5"
-              onClick={scrollUp}
-              title="滚动到顶部"
-            >
-              <ChevronDoubleUpIcon
-                className="h-6 text-indigo-300 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-slate-100"
-                aria-hidden="true"
-              />
-            </Button>
-            <Button
-              className="absolute bottom-[30vh] right-5"
-              onClick={scrollDown}
-              title="滚动到底部"
-            >
-              <ChevronDoubleDownIcon
-                className="h-6 text-indigo-300 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-slate-100"
-                aria-hidden="true"
-              />
-            </Button>
+            {chatListTopRatio < 1 ? (
+              <Button
+                className="absolute bottom-[70vh] right-5"
+                onClick={scrollUp}
+                title="滚动到顶部"
+              >
+                <ChevronDoubleUpIcon
+                  className="h-6 text-indigo-300 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-slate-100"
+                  aria-hidden="true"
+                />
+              </Button>
+            ) : null}
+            {chatListBottomRatio < 1 ? (
+              <Button
+                className="absolute bottom-[30vh] right-5"
+                onClick={scrollDown}
+                title="滚动到底部"
+              >
+                <ChevronDoubleDownIcon
+                  className="h-6 text-indigo-300 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-slate-100"
+                  aria-hidden="true"
+                />
+              </Button>
+            ) : null}
             <Button
               onClick={handleExport}
               title="将当前对话的完整内容复制到剪贴板"

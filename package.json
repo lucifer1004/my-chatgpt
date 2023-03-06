@@ -18,6 +18,7 @@
     "@headlessui/react": "^1.7.12",
     "@heroicons/react": "^2.0.16",
     "@vercel/analytics": "^0.1.11",
+    "ahooks": "^3.7.5",
     "gpt-3-encoder": "^1.1.4",
     "immer": "^9.0.19",
     "next": "^13.1.1",

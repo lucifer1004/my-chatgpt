@@ -23,7 +23,7 @@ export default function Home() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          input: unsplash(subject),
+          input: unsplash(subject || "random"),
           history: [],
           temperature: state.temperature,
         }),
@@ -78,7 +78,7 @@ export default function Home() {
               setSubject("");
             }}
             disabled={submitDisabled}
-            className="flex h-10 w-20 items-center justify-center gap-2 bg-indigo-600 text-indigo-300 hover:bg-indigo-300 hover:text-indigo-600 dark:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-400 dark:hover:text-slate-100"
+            className="flex h-10 w-20 items-center justify-center gap-2 bg-indigo-600 text-indigo-300 disabled:cursor-not-allowed disabled:bg-indigo-300 disabled:text-indigo-600 hover:bg-indigo-300 hover:text-indigo-600 dark:bg-slate-100 dark:text-slate-400 dark:disabled:bg-slate-400 dark:disabled:text-slate-100 dark:hover:bg-slate-400 dark:hover:text-slate-100"
             title="使用Unsplash API获取随机图片"
           >
             <PhotoIcon className="h-6" aria-hidden="true" />
