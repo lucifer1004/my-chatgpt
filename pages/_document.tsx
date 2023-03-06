@@ -19,7 +19,7 @@ class MyDocument extends Document {
 
           <link rel="icon" href="/dog.png" />
         </Head>
-        <body className="h-full bg-gray-100 dark:bg-slate-700">
+        <body className="h-full overflow-hidden bg-gray-100 dark:bg-slate-700">
           <Main />
           <NextScript />
         </body>

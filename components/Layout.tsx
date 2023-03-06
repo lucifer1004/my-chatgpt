@@ -74,12 +74,12 @@ export default function Layout(props: { children?: React.ReactNode }) {
                     <div className="absolute top-0 right-0 -mr-12 pt-2">
                       <button
                         type="button"
-                        className="ml-1 flex h-10 w-10 items-center justify-center rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+                        className="ml-1 flex h-10 w-10 items-center justify-center rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-300 dark:focus:ring-slate-400"
                         onClick={() => setSidebarOpen(false)}
                       >
                         <span className="sr-only">Close sidebar</span>
                         <XMarkIcon
-                          className="h-6 w-6 text-white"
+                          className="h-6 text-indigo-300 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-slate-100"
                           aria-hidden="true"
                         />
                       </button>
@@ -106,11 +106,14 @@ export default function Layout(props: { children?: React.ReactNode }) {
           <div className="sticky top-0 z-10 flex h-12 bg-white p-2 shadow dark:bg-slate-800">
             <button
               type="button"
-              className="border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 lg:hidden"
+              className="border-r border-gray-200 px-4 text-gray-500 lg:hidden"
               onClick={() => setSidebarOpen(true)}
             >
               <span className="sr-only">Open sidebar</span>
-              <Bars3BottomLeftIcon className="h-6 w-6" aria-hidden="true" />
+              <Bars3BottomLeftIcon
+                className="h-6 text-indigo-300 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-slate-100"
+                aria-hidden="true"
+              />
             </button>
             <div className="flex flex-1 items-center justify-center px-4">
               {mounted ? (
@@ -138,14 +141,17 @@ export default function Layout(props: { children?: React.ReactNode }) {
               className="flex items-center justify-center rounded-full pr-2"
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             >
-              <SunIcon className="h-6 w-6 text-slate-400 " aria-hidden="true" />
+              <SunIcon
+                className="h-6 text-indigo-300 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-slate-100"
+                aria-hidden="true"
+              />
             </button>
 
             <Menu as="div" className="relative ml-3 flex">
               <Menu.Button className="flex max-w-xs items-center rounded-full bg-white text-sm dark:bg-slate-800">
                 <span className="sr-only">设置</span>
                 <Cog8ToothIcon
-                  className="h-6 w-6 text-slate-400"
+                  className="h-6 text-indigo-300 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-slate-100"
                   aria-hidden="true"
                 />
               </Menu.Button>

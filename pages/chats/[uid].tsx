@@ -153,27 +153,27 @@ export default function ChatPage() {
               disabled={submitDisabled}
             >
               <PaperAirplaneIcon
-                className="h-6 text-indigo-300"
+                className="h-6 text-indigo-300 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-slate-100"
                 aria-hidden="true"
               />
             </Button>
             <Button
-              className="absolute bottom-[70vh] right-5 bg-transparent shadow-none"
+              className="absolute bottom-[70vh] right-5"
               onClick={scrollUp}
               title="滚动到顶部"
             >
               <ChevronDoubleUpIcon
-                className="h-6 text-indigo-300"
+                className="h-6 text-indigo-300 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-slate-100"
                 aria-hidden="true"
               />
             </Button>
             <Button
-              className="absolute bottom-[30vh] right-5 bg-transparent shadow-none"
+              className="absolute bottom-[30vh] right-5"
               onClick={scrollDown}
               title="滚动到底部"
             >
               <ChevronDoubleDownIcon
-                className="h-6 text-indigo-300"
+                className="h-6 text-indigo-300 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-slate-100"
                 aria-hidden="true"
               />
             </Button>
@@ -182,7 +182,7 @@ export default function ChatPage() {
               title="将当前对话的完整内容复制到剪贴板"
             >
               <ClipboardDocumentIcon
-                className="h-6 text-indigo-300"
+                className="h-6 text-indigo-300 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-slate-100"
                 aria-hidden="true"
               />
             </Button>
@@ -196,7 +196,7 @@ export default function ChatPage() {
               title="开始一个新对话（当前对话将被自动保存）"
             >
               <ChatBubbleLeftRightIcon
-                className="h-6 text-indigo-300"
+                className="h-6 text-indigo-300 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-slate-100"
                 aria-hidden="true"
               />
             </Button>

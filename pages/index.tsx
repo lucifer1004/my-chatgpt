@@ -32,21 +32,20 @@ My ChatGPT的作者[Gabriel Wu](https://github.com/lucifer1004)已将源代码�
 或者：
 `}
           />
-          <Button
-            onClick={() => {
-              const newId = uuidv4();
-              dispatch({ type: "create", chatId: newId });
-              router.push(`/chats/${newId}`);
-            }}
-            className="mt-5 flex w-full items-center justify-center dark:text-slate-600"
-            title="开始一个新对话"
-          >
-            <ChatBubbleLeftRightIcon
-              className="h-6 text-indigo-300"
-              aria-hidden="true"
-            />
-            立刻开始对话
-          </Button>
+          <div className="flex items-center justify-center">
+            <Button
+              onClick={() => {
+                const newId = uuidv4();
+                dispatch({ type: "create", chatId: newId });
+                router.push(`/chats/${newId}`);
+              }}
+              className="mt-5 flex w-[50%] items-center justify-center gap-2 bg-indigo-400 text-indigo-100 hover:bg-indigo-300 hover:text-indigo-600 dark:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-400 dark:hover:text-slate-100"
+              title="开始一个新对话"
+            >
+              <ChatBubbleLeftRightIcon className="h-6" aria-hidden="true" />
+              立刻开始对话
+            </Button>
+          </div>
         </div>
       </div>
     </Layout>
