@@ -13,7 +13,7 @@ export default function Home() {
 
   return (
     <Layout>
-      <div className="flex h-[calc(100vh-128px)] flex-col items-center justify-center">
+      <div className="flex h-[calc(100vh-150px)] flex-col items-center justify-center">
         <div className="overflow-auto">
           <Markdown
             disableCopy

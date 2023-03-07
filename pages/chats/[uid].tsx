@@ -5,9 +5,10 @@ import {
   ClipboardDocumentIcon,
   PaperAirplaneIcon,
 } from "@heroicons/react/24/outline";
+import { PaperAirplaneIcon as PaperAirplaneIconSolid } from "@heroicons/react/24/solid";
 import { useInViewport } from "ahooks";
 import { useRouter } from "next/router";
-import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Button from "../../components/Button";
 import Layout from "../../components/Layout";
@@ -24,7 +25,6 @@ export default function ChatPage() {
   const { state, dispatch } = useContext(MyChatGPTContext);
   const chatListTop = useRef(null);
   const chatListBottom = useRef(null);
-  const trimmedInput = useMemo(() => input.trim(), [input]);
   const [_chatListTopInViewport, chatListTopRatio] = useInViewport(chatListTop);
   const [_chatListBottomInViewport, chatListBottomRatio] =
     useInViewport(chatListBottom);
@@ -52,6 +52,11 @@ export default function ChatPage() {
   }, [history]);
 
   async function handleSubmit() {
+    if (input.trim().length === 0) {
+      alert("输入为空");
+      return;
+    }
+
     setSubmitDisabled(true);
     try {
       const response = await fetch("/api/generate", {
@@ -119,7 +124,7 @@ export default function ChatPage() {
 
   return (
     <Layout>
-      <div className="flex h-[calc(100vh-128px)] flex-col justify-between gap-5">
+      <div className="flex h-[calc(100vh-150px)] flex-col justify-between gap-5">
         <div className="grow overflow-auto">
           <div className="flex flex-col justify-center gap-2">
             <div key="chat-list-top" ref={chatListTop}></div>
@@ -155,9 +160,13 @@ export default function ChatPage() {
               onClick={onSubmit}
               className="flex items-center justify-center text-indigo-300 disabled:cursor-not-allowed hover:text-indigo-600 disabled:hover:text-indigo-300 dark:text-slate-400 dark:hover:text-slate-100 dark:disabled:hover:text-slate-400"
               title="将当前输入的内容发送给ChatGPT"
-              disabled={submitDisabled || trimmedInput.length === 0}
+              disabled={submitDisabled}
             >
-              <PaperAirplaneIcon className="h-6" aria-hidden="true" />
+              {submitDisabled ? (
+                <PaperAirplaneIconSolid className="h-6" aria-hidden="true" />
+              ) : (
+                <PaperAirplaneIcon className="h-6" aria-hidden="true" />
+              )}
             </Button>
             {chatListTopRatio < 1 ? (
               <Button

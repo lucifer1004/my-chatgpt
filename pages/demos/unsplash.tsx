@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { PhotoIcon } from "@heroicons/react/24/outline";
+import { PhotoIcon as PhotoIconSolid } from "@heroicons/react/24/solid";
 import React, { useContext, useState } from "react";
 import Button from "../../components/Button";
 import Layout from "../../components/Layout";
@@ -81,7 +82,11 @@ export default function Home() {
             className="flex h-10 w-20 items-center justify-center gap-2 bg-indigo-600 text-indigo-300 disabled:cursor-not-allowed disabled:bg-indigo-300 disabled:text-indigo-600 hover:bg-indigo-300 hover:text-indigo-600 dark:bg-slate-100 dark:text-slate-400 dark:disabled:bg-slate-400 dark:disabled:text-slate-100 dark:hover:bg-slate-400 dark:hover:text-slate-100"
             title="使用Unsplash API获取随机图片"
           >
-            <PhotoIcon className="h-6" aria-hidden="true" />
+            {submitDisabled ? (
+              <PhotoIconSolid className="h-6" aria-hidden="true" />
+            ) : (
+              <PhotoIcon className="h-6" aria-hidden="true" />
+            )}
             生成
           </Button>
         </div>

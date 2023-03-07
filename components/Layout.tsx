@@ -48,7 +48,7 @@ export default function Layout(props: { children?: React.ReactNode }) {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <div className="fixed inset-0 bg-gray-600 bg-opacity-75" />
+              <div className="fixed inset-0 bg-slate-600 bg-opacity-75" />
             </Transition.Child>
 
             <div className="fixed inset-0 z-30 flex">
@@ -106,7 +106,7 @@ export default function Layout(props: { children?: React.ReactNode }) {
           <div className="sticky top-0 z-10 flex h-12 bg-white p-2 shadow dark:bg-slate-800">
             <button
               type="button"
-              className="border-r border-gray-200 px-4 text-gray-500 lg:hidden"
+              className="border-r border-slate-200 px-4 text-slate-500 lg:hidden"
               onClick={() => setSidebarOpen(true)}
             >
               <span className="sr-only">Open sidebar</span>
@@ -131,7 +131,7 @@ export default function Layout(props: { children?: React.ReactNode }) {
                 onClick={() => {
                   router.push("/");
                 }}
-                className="text-md px-2 font-semibold text-gray-900 dark:text-white sm:text-xl md:text-2xl"
+                className="text-md px-2 font-semibold text-slate-900 dark:text-white sm:text-xl md:text-2xl"
               >
                 My ChatGPT
               </h1>
@@ -164,11 +164,11 @@ export default function Layout(props: { children?: React.ReactNode }) {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
               >
-                <Menu.Items className="absolute right-0 z-10 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-gray-700">
+                <Menu.Items className="absolute right-0 z-10 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-slate-700">
                   <Menu.Item key="temperature" as="div" className="p-2">
                     <label
                       htmlFor="temperature-range"
-                      className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                      className="mb-2 block text-sm font-medium text-slate-900 dark:text-white"
                     >
                       <span title="模型温度会影响结果的随机性，取值范围为0.0到2.0（但超过1.2时回答基本不可用）。数值越小，模型越确定；数值越大，模型越随机。">
                         模型温度：{state.temperature}
@@ -194,7 +194,7 @@ export default function Layout(props: { children?: React.ReactNode }) {
                           temperature: targetTemperature,
                         });
                       }}
-                      className="h-2 w-full cursor-pointer rounded-lg bg-gray-200 dark:bg-slate-600"
+                      className="h-2 w-full cursor-pointer rounded-lg bg-slate-200 dark:bg-slate-600"
                     />
                   </Menu.Item>
                 </Menu.Items>
@@ -211,7 +211,7 @@ export default function Layout(props: { children?: React.ReactNode }) {
           </main>
 
           <footer className="m-0 flex h-12 shrink-0 grow-0 items-center justify-center rounded-lg p-0 dark:bg-slate-700">
-            <span className="text-sm text-gray-500 dark:text-gray-400 sm:text-center">
+            <span className="text-sm text-slate-500 dark:text-slate-400 sm:text-center">
               © 2023{" "}
               <a
                 href="https://github.com/lucifer1004"

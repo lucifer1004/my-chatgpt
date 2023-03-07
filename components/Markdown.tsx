@@ -33,7 +33,7 @@ function Markdown(props) {
                 <CopyToClipboard text={String(children)}>
                   <button
                     title="复制到剪贴板"
-                    className="absolute top-1 right-1 flex items-center justify-center rounded bg-gray-400 p-1 text-sm text-black hover:bg-gray-700"
+                    className="absolute top-1 right-1 flex items-center justify-center rounded bg-slate-400 p-1 text-sm text-black hover:bg-slate-700"
                   >
                     {match[1] + "📋"}
                   </button>
@@ -62,7 +62,7 @@ function Markdown(props) {
         <CopyToClipboard text={String(props.children)}>
           <button
             title="复制到剪贴板"
-            className="absolute top-2 right-1 flex h-4 w-4 items-center justify-center rounded border-0 bg-gray-400 text-sm text-black hover:bg-gray-700"
+            className="absolute top-2 right-1 flex h-4 w-4 items-center justify-center rounded border-0 bg-slate-400 text-sm text-black hover:bg-slate-700"
           >
             📋
           </button>
