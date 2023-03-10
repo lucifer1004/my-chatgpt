@@ -231,7 +231,6 @@ export default function Layout(props: { children?: React.ReactNode }) {
               >
                 Gabriel Wu
               </a>
-              . All Rights Reserved.
             </span>
           </footer>
         </div>
