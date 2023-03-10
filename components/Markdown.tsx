@@ -7,7 +7,7 @@ import { materialDark as dark } from "react-syntax-highlighter/dist/cjs/styles/p
 import rehypeKatex from "rehype-katex";
 import remarkGfm from "remark-gfm";
 import RemarkMathPlugin from "remark-math";
-import { classNames } from "../utils";
+import { classNames } from "../utils/client";
 
 function Markdown(props) {
   const newProps = {

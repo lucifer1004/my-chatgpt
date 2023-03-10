@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
 import { MyChatGPTContext } from "../contexts/MyChatGPTContext";
-import { classNames, getSummary } from "../utils";
+import { classNames, getSummary } from "../utils/client";
 
 export default function HistoryItem({ item }) {
   const router = useRouter();

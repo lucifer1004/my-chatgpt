@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
 import { Fragment, useContext, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { MyChatGPTContext } from "../contexts/MyChatGPTContext";
-import { wrappedWriteClipboard } from "../utils";
+import { wrappedWriteClipboard } from "../utils/client";
 import HistoryItem from "./HistoryItem";
 
 export default function History() {

@@ -14,13 +14,14 @@ import Button from "../../components/Button";
 import Layout from "../../components/Layout";
 import Markdown from "../../components/Markdown";
 import { MyChatGPTContext } from "../../contexts/MyChatGPTContext";
-import { wrappedWriteClipboard } from "../../utils";
+import { wrappedWriteClipboard } from "../../utils/client";
 
 export default function ChatPage() {
   const router = useRouter();
   const { uid } = router.query;
   const [input, setInput] = useState("");
   const [history, setHistory] = useState([]);
+  const [activeResponse, setActiveResponse] = useState("");
   const [submitDisabled, setSubmitDisabled] = useState(false);
   const { state, dispatch } = useContext(MyChatGPTContext);
   const chatListTop = useRef(null);
@@ -58,8 +59,11 @@ export default function ChatPage() {
     }
 
     setSubmitDisabled(true);
+
+    const newHistory = [...history];
+    let botReply = "";
     try {
-      const response = await fetch("/api/generate", {
+      const encodeResponse = await fetch("/api/encode", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -67,30 +71,59 @@ export default function ChatPage() {
         body: JSON.stringify({
           input,
           history,
+          "max-tokens": 4096,
+        }),
+      });
+      const { messages } = await encodeResponse.json();
+
+      const response = await fetch("/api/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          messages,
           temperature: state.temperature,
         }),
       });
 
-      const data = await response.json();
       if (response.status !== 200) {
-        throw (
-          data.error ||
-          new Error(`Request failed with status ${response.status}`)
-        );
+        throw new Error(`Request failed with status ${response.status}`);
       }
 
-      const newHistory = [
-        ...history,
-        { role: "user", content: input },
-        { role: "assistant", content: data.result },
-      ];
+      const data = response.body;
+      if (!data) {
+        return;
+      }
+
+      const reader = data.getReader();
+      const decoder = new TextDecoder();
+      let done = false;
+
+      newHistory.push({ role: "user", content: input });
       setHistory(newHistory);
-      localStorage.setItem(uid as string, JSON.stringify(newHistory));
       setInput("");
+
+      while (!done) {
+        const { value, done: doneReading } = await reader.read();
+        done = doneReading;
+        const chunkValue = decoder.decode(value);
+        setActiveResponse((prev) => prev + chunkValue);
+        botReply += chunkValue;
+        scrollDown();
+      }
     } catch (error) {
       // Consider implementing your own error handling logic here
       console.error(error);
       alert(error.message);
+    } finally {
+      if (botReply !== "") {
+        newHistory.push({ role: "assistant", content: botReply });
+        localStorage.setItem(uid as string, JSON.stringify(newHistory));
+        setHistory([...newHistory]);
+      }
+
+      setActiveResponse("");
     }
 
     setSubmitDisabled(false);
@@ -128,20 +161,28 @@ export default function ChatPage() {
         <div className="grow overflow-auto">
           <div className="flex flex-col justify-center gap-2">
             <div key="chat-list-top" ref={chatListTop}></div>
-            {Array.from({ length: history.length / 2 }).map((_, index) => (
-              <div key={uid + "-d-" + index.toString()}>
-                <Markdown
-                  className="p-2"
-                  key={uid + "-" + (index * 2).toString()}
-                  children={history[index * 2].content}
-                />
+            {history.map((item, index) =>
+              item.role === "assistant" ? (
                 <Markdown
                   className="rounded-md bg-indigo-200 p-2 leading-relaxed dark:bg-slate-600"
-                  key={uid + "-" + (index * 2 + 1).toString()}
-                  children={history[index * 2 + 1].content}
+                  key={uid + "-" + index.toString()}
+                  children={item.content}
                 />
-              </div>
-            ))}
+              ) : (
+                <Markdown
+                  className="p-2"
+                  key={uid + "-" + index.toString()}
+                  children={item.content}
+                />
+              )
+            )}
+            {activeResponse !== "" ? (
+              <Markdown
+                className="rounded-md bg-indigo-200 p-2 leading-relaxed dark:bg-slate-600"
+                key={uid + "-" + history.length.toString()}
+                children={activeResponse}
+              />
+            ) : null}
             <div key="chat-list-bottom" ref={chatListBottom}></div>
           </div>
         </div>

@@ -171,7 +171,7 @@ export default function Layout(props: { children?: React.ReactNode }) {
                       className="mb-2 block text-sm font-medium text-slate-900 dark:text-white"
                     >
                       <span title="模型温度会影响结果的随机性，取值范围为0.0到2.0（但超过1.2时回答基本不可用）。数值越小，模型越确定；数值越大，模型越随机。">
-                        模型温度：{state.temperature}
+                        模型温度：{state.temperature.toFixed(2)}
                       </span>
                     </label>
                     <input
@@ -180,7 +180,7 @@ export default function Layout(props: { children?: React.ReactNode }) {
                       value={state.temperature}
                       min={MINIMUM_TEMPERATURE}
                       max={MAXIMUM_TEMPERATURE}
-                      step={0.05}
+                      step={0.01}
                       onChange={(e) => {
                         const targetTemperature = Math.max(
                           MINIMUM_TEMPERATURE,
