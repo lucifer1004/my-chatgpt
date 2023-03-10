@@ -10,7 +10,13 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useTheme } from "next-themes";
 import { Fragment, useContext, useEffect, useState } from "react";
-import { MAXIMUM_TEMPERATURE, MINIMUM_TEMPERATURE } from "../constants";
+import {
+  MAXIMUM_TEMPERATURE,
+  MINIMUM_TEMPERATURE,
+  VERSION_MAJOR,
+  VERSION_MINOR,
+  VERSION_PATCH,
+} from "../constants";
 import { MyChatGPTContext } from "../contexts/MyChatGPTContext";
 import History from "./History";
 
@@ -212,6 +218,12 @@ export default function Layout(props: { children?: React.ReactNode }) {
 
           <footer className="m-0 flex h-12 shrink-0 grow-0 items-center justify-center rounded-lg p-0 dark:bg-slate-700">
             <span className="text-sm text-slate-500 dark:text-slate-400 sm:text-center">
+              <a
+                href="https://github.com/lucifer1004/my-chatgpt"
+                className="hover:underline"
+              >
+                My ChatGPT v{VERSION_MAJOR}.{VERSION_MINOR}.{VERSION_PATCH}
+              </a>{" "}
               © 2023{" "}
               <a
                 href="https://github.com/lucifer1004"

@@ -1,6 +1,6 @@
 {
-  "name": "openai-quickstart-node",
-  "version": "0.1.0",
+  "name": "my-chatgpt",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev -H 0.0.0.0",
