@@ -62,6 +62,7 @@ export default function ChatPage() {
 
     const newHistory = [...history];
     let botReply = "";
+    let counter = 0;
     try {
       const encodeResponse = await fetch("/api/encode", {
         method: "POST",
@@ -110,7 +111,10 @@ export default function ChatPage() {
         const chunkValue = decoder.decode(value);
         setActiveResponse((prev) => prev + chunkValue);
         botReply += chunkValue;
-        scrollDown();
+        counter++;
+        if (counter % 10 === 0) {
+          scrollDown();
+        }
       }
     } catch (error) {
       // Consider implementing your own error handling logic here
