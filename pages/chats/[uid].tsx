@@ -133,8 +133,15 @@ export default function ChatPage() {
     setSubmitDisabled(false);
   }
 
-  async function handleKeyDown(e) {
-    if (e.keyCode == 13 && e.shiftKey) {
+  async function handleKeyDown(e: KeyboardEvent) {
+    // Submit when only Enter is pressed
+    if (
+      (e.key == "Enter" || e.keyCode == 13) &&
+      !e.shiftKey &&
+      !e.ctrlKey &&
+      !e.altKey &&
+      !e.metaKey
+    ) {
       e.preventDefault();
       await handleSubmit();
     }
@@ -194,11 +201,12 @@ export default function ChatPage() {
           <textarea
             rows={3}
             name="input"
-            placeholder="在这里输入（Shift+回车快速提交）"
+            placeholder="在这里输入（回车提交，Shift+回车换行）"
             value={input}
             className="h-full w-full rounded-md border-2 border-double border-slate-400 bg-indigo-200 dark:bg-slate-600 md:basis-[7/8]"
             onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => handleKeyDown(e)}
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            onKeyDown={(e) => handleKeyDown(e as any as KeyboardEvent)}
           />
           <div className="margin-2 flex basis-1/5 items-center justify-center gap-2 ">
             <Button

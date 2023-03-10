@@ -18,7 +18,7 @@ export default function Home() {
     setSubmitDisabled(true);
 
     try {
-      const response = await fetch("/api/generate", {
+      const response = await fetch("/api/generate-old", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -48,6 +48,13 @@ export default function Home() {
     setSubmitDisabled(false);
   }
 
+  async function handleKeyDown(e: KeyboardEvent) {
+    if (e.key == "Enter" || e.keyCode == 13) {
+      e.preventDefault();
+      await handleSubmit();
+    }
+  }
+
   return (
     <Layout>
       <div className=" flex h-[calc(100vh-150px)] flex-col items-center justify-between gap-3">
@@ -72,6 +79,8 @@ export default function Home() {
             value={subject}
             className="lg:text-md w-30 h-10 rounded-md border-2 text-center text-sm"
             onChange={(e) => setSubject(e.target.value)}
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            onKeyDown={(e) => handleKeyDown(e as any as KeyboardEvent)}
           />
           <Button
             onClick={async () => {

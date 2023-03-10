@@ -1,7 +1,7 @@
 import { encode } from "gpt-3-encoder";
 import { ChatCompletionRequestMessage } from "openai";
 
-function generatePrompt(question: string): ChatCompletionRequestMessage {
+export function generatePrompt(question: string): ChatCompletionRequestMessage {
   return {
     role: "user",
     content: question,
