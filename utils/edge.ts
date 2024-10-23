@@ -1,8 +1,4 @@
-import {
-  createParser,
-  ParsedEvent,
-  ReconnectInterval,
-} from "eventsource-parser";
+import { createParser, type EventSourceMessage } from "eventsource-parser";
 
 export type ChatGPTAgent = "user" | "system" | "assistant";
 
@@ -29,9 +25,11 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
 
   let counter = 0;
 
-  const res = await fetch("https://api.openai.com/v1/chat/completions", {
-    headers: {
-      "Content-Type": "application/json",
+  const res = await fetch(
+    `${process.env.OPENAI_BASE_URL ?? "https://api.openai.com"}/chat/completions`,
+    {
+      headers: {
+        "Content-Type": "application/json",
       Authorization: `Bearer ${process.env.OPENAI_API_KEY ?? ""}`,
     },
     method: "POST",
@@ -41,8 +39,9 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
   const stream = new ReadableStream({
     async start(controller) {
       // callback
-      function onParse(event: ParsedEvent | ReconnectInterval) {
-        if (event.type === "event") {
+      const callback = {
+        onEvent: (event: EventSourceMessage) => {
+        if (event.event === "event") {
           const data = event.data;
           // https://beta.openai.com/docs/api-reference/completions/create#completions/create-stream
           if (data === "[DONE]") {
@@ -62,13 +61,14 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
           } catch (e) {
             // maybe parse error
             controller.error(e);
+            }
           }
-        }
-      }
+        },
+      };
 
       // stream response (SSE) from OpenAI may be fragmented into multiple chunks
       // this ensures we properly read chunks and invoke an event for each SSE event stream
-      const parser = createParser(onParse);
+      const parser = createParser(callback);
       // https://web.dev/streams/#asynchronous-iteration
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       for await (const chunk of res.body as any) {

@@ -14,7 +14,7 @@ export default async function (req: Request) {
   const { messages, temperature } = await req.json();
 
   const completionStream = await OpenAIStream({
-    model: "gpt-3.5-turbo",
+    model: process.env.OPENAI_MODEL_NAME ?? "gpt-4o",
     messages,
     temperature,
     stream: true,

@@ -1,10 +1,11 @@
-import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from "openai";
+import { ClientOptions, OpenAI } from "openai";
 import { generatePrompt } from "../../utils/server";
 
-const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-const openai = new OpenAIApi(configuration);
+const configuration: ClientOptions = {
+  apiKey: process.env.OPENAI_API_KEY ?? "",
+  baseURL: process.env.OPENAI_BASE_URL ?? "https://api.openai.com",
+};
+const openai = new OpenAI(configuration);
 
 export default async function (req, res) {
   if (!configuration.apiKey) {
@@ -29,23 +30,23 @@ export default async function (req, res) {
 
   try {
     // In case the input is too long, we will only use the last 4096 tokens.
-    const messages: ChatCompletionRequestMessage[] = [
+    const messages: OpenAI.ChatCompletionMessage[] = [
       ...req.body.history,
       generatePrompt(input),
     ];
 
-    const completion = await openai.createChatCompletion({
-      model: "gpt-3.5-turbo",
+    const completion = await openai.chat.completions.create({
+      model: process.env.OPENAI_MODEL_NAME ?? "gpt-4o",
       messages,
       temperature: parseFloat(req.body.temperature) || 0.6,
     });
 
     // Comment them out if you do not need logging
     console.info(input);
-    console.info(completion.data.choices[0]);
+    console.info(completion.choices[0]);
     res
       .status(200)
-      .json({ result: completion.data.choices[0].message?.content });
+      .json({ result: completion.choices[0].message?.content });
   } catch (error) {
     // Consider adjusting the error handling logic for your use case
     if (error.response) {

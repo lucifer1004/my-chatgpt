@@ -1,5 +1,8 @@
-import produce from "immer";
-import React, { createContext, useReducer } from "react";
+"use client";
+
+import { produce } from "immer";
+import type { ReactNode, Dispatch } from "react";
+import { createContext, useReducer } from "react";
 import {
   DEFAULT_TEMPERATURE,
   MAXIMUM_TEMPERATURE,
@@ -32,12 +35,12 @@ const initialState = (): MyChatGPTState => ({
 
 const MyChatGPTContext = createContext<MyChatGPTReducer>({
   state: undefined as unknown as MyChatGPTState,
-  dispatch: undefined as unknown as React.Dispatch<MyChatGPTAction>,
+  dispatch: undefined as unknown as Dispatch<MyChatGPTAction>,
 });
 
 const reducer = (state: MyChatGPTState, action: MyChatGPTAction) => {
   switch (action.type) {
-    case "init":
+    case "init": {
       if (!state.inited) {
         const indices = localStorage.getItem("my-chatgpt-indices");
         if (indices) {
@@ -45,18 +48,17 @@ const reducer = (state: MyChatGPTState, action: MyChatGPTAction) => {
             draft.inited = true;
             draft.indices = JSON.parse(indices);
           });
-        } else {
-          localStorage.setItem("my-chatgpt-indices", "[]");
-          return produce(state, (draft) => {
-            draft.inited = true;
-            draft.indices = [];
-          });
         }
-      } else {
-        return state;
+        localStorage.setItem("my-chatgpt-indices", "[]");
+        return produce(state, (draft) => {
+          draft.inited = true;
+          draft.indices = [];
+        });
       }
+      return state;
+    }
 
-    case "create":
+    case "create": {
       if (localStorage.getItem(action.chatId) === null) {
         localStorage.setItem(action.chatId, "[]");
         localStorage.setItem(
@@ -70,8 +72,9 @@ const reducer = (state: MyChatGPTState, action: MyChatGPTAction) => {
           draft.indices.push(action.chatId);
         }
       });
+    }
 
-    case "delete":
+    case "delete": {
       localStorage.removeItem(action.chatId);
       const remainingIndices = state.indices.filter(
         (index) => index !== action.chatId
@@ -83,6 +86,7 @@ const reducer = (state: MyChatGPTState, action: MyChatGPTAction) => {
       return produce(state, (draft) => {
         draft.indices = remainingIndices;
       });
+    }
 
     case "import":
       return produce(state, (draft) => {
@@ -111,7 +115,7 @@ const reducer = (state: MyChatGPTState, action: MyChatGPTAction) => {
 };
 
 interface MyChatGPTProviderProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
 const MyChatGPTProvider = ({ children }: MyChatGPTProviderProps) => {

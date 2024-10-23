@@ -1,3 +1,5 @@
+"use client";
+
 import "katex/dist/katex.min.css";
 import React from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
