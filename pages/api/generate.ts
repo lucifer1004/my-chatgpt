@@ -1,4 +1,11 @@
-import { OpenAIStream } from "../../utils/edge";
+import { createOpenAI } from '@ai-sdk/openai';
+import { streamText } from 'ai';
+
+const openai = createOpenAI({
+  baseURL: process.env.OPENAI_BASE_URL ?? "https://api.openai.com/v1",
+  apiKey: process.env.OPENAI_API_KEY ?? "",
+});
+
 
 if (!process.env.OPENAI_API_KEY) {
   throw new Error(
@@ -10,15 +17,20 @@ export const config = {
   runtime: "edge",
 };
 
-export default async function (req: Request) {
+export default async function GET(req: Request) {
   const { messages, temperature } = await req.json();
 
-  const completionStream = await OpenAIStream({
-    model: process.env.OPENAI_MODEL_NAME ?? "gpt-4o",
+  // Make a request to OpenAI's API based on
+  // a placeholder prompt
+  const response = await streamText({
+    model: openai(process.env.OPENAI_MODEL_NAME ?? "gpt-4o"),
     messages,
     temperature,
-    stream: true,
   });
-
-  return new Response(completionStream);
+  // Respond with the stream
+  return response.toTextStreamResponse({
+    headers: {
+      'Content-Type': 'text/event-stream',
+    },
+  });
 }

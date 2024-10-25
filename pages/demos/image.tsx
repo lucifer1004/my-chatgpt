@@ -1,32 +1,27 @@
 /* eslint-disable @next/next/no-img-element */
 import { PhotoIcon } from "@heroicons/react/24/outline";
 import { PhotoIcon as PhotoIconSolid } from "@heroicons/react/24/solid";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import Button from "../../components/Button";
 import Layout from "../../components/Layout";
 import Markdown from "../../components/Markdown";
-import { MyChatGPTContext } from "../../contexts/MyChatGPTContext";
-import { unsplash } from "../../fixtures/prompts";
 
 export default function Home() {
-  const { state } = useContext(MyChatGPTContext);
   const [submitDisabled, setSubmitDisabled] = useState(false);
   const [subject, setSubject] = useState("");
-  const [md, setMD] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
 
   async function handleSubmit() {
     setSubmitDisabled(true);
 
     try {
-      const response = await fetch("/api/generate-old", {
+      const response = await fetch("/api/image", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          input: unsplash(subject || "random"),
-          history: [],
-          temperature: state.temperature,
+          input: subject,
         }),
       });
 
@@ -38,7 +33,7 @@ export default function Home() {
         );
       }
 
-      setMD(data.result);
+      setImageUrl(data.images[0].url);
     } catch (error) {
       // Consider implementing your own error handling logic here
       console.error(error);
@@ -61,23 +56,23 @@ export default function Home() {
         <Markdown
           disableCopy
           className="h-20 shrink-0 grow-0"
-          children={`### Unsplash 图片查找器
+          children={`### 生成随机图片
 
-在下面的输入框中输入您想要查找的图片主题，然后点击“生成”按钮，即可从Unsplash API中获取一张该主题的随机图片。
+在下面的输入框中输入您想要查找的图片主题，然后点击“生成”按钮，即可获取一张该主题的随机图片。
 `}
         />
         <div className="flex grow items-center justify-center overflow-auto">
-          {md === "" ? null : (
+          {imageUrl === "" ? null : (
             <img
-              src={`https://source.unsplash.com/400x300/?${md}`}
-              alt={`An image of ${md}`}
+              src={imageUrl}
+              alt={`An image of ${subject}`}
             />
           )}
         </div>
         <div className="flex h-16 shrink-0 grow-0 items-center justify-center gap-2">
           <input
             value={subject}
-            className="lg:text-md w-30 h-10 rounded-md border-2 text-center text-sm"
+            className="lg:text-md w-30 h-10 rounded-md border-2 text-center text-black text-sm"
             onChange={(e) => setSubject(e.target.value)}
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             onKeyDown={(e) => handleKeyDown(e as any as KeyboardEvent)}
@@ -89,7 +84,7 @@ export default function Home() {
             }}
             disabled={submitDisabled}
             className="flex h-10 w-20 items-center justify-center gap-2 bg-indigo-600 text-indigo-300 disabled:cursor-not-allowed disabled:bg-indigo-300 disabled:text-indigo-600 hover:bg-indigo-300 hover:text-indigo-600 dark:bg-slate-100 dark:text-slate-400 dark:disabled:bg-slate-400 dark:disabled:text-slate-100 dark:hover:bg-slate-400 dark:hover:text-slate-100"
-            title="使用Unsplash API获取随机图片"
+            title="生成随机图片"
           >
             {submitDisabled ? (
               <PhotoIconSolid className="h-6" aria-hidden="true" />

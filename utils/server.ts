@@ -1,7 +1,7 @@
 import { encode } from "gpt-3-encoder";
-import { ChatCompletionRequestMessage } from "openai";
+import { OpenAI } from "openai";
 
-export function generatePrompt(question: string): ChatCompletionRequestMessage {
+export function generatePrompt(question: string): OpenAI.ChatCompletionMessageParam {
   return {
     role: "user",
     content: question,
@@ -9,7 +9,7 @@ export function generatePrompt(question: string): ChatCompletionRequestMessage {
 }
 
 export function encodeMessages(input, history, maxTokens = 4096) {
-  const messages: ChatCompletionRequestMessage[] = [generatePrompt(input)];
+  const messages: OpenAI.ChatCompletionMessageParam[] = [generatePrompt(input)];
   let tokenCount = encode(input).length;
   for (let i = history.length - 1; i >= 0; i--) {
     const token = encode(history[i].content).length;

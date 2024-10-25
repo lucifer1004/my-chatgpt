@@ -1,14 +1,5 @@
-import { ClientOptions, OpenAI } from "openai";
-import { generatePrompt } from "../../utils/server";
-
-const configuration: ClientOptions = {
-  apiKey: process.env.OPENAI_API_KEY ?? "",
-  baseURL: process.env.OPENAI_BASE_URL ?? "https://api.openai.com",
-};
-const openai = new OpenAI(configuration);
-
 export default async function (req, res) {
-  if (!configuration.apiKey) {
+  if (!process.env.OPENAI_API_KEY) {
     res.status(500).json({
       error: {
         message:
@@ -22,31 +13,42 @@ export default async function (req, res) {
   if (input.trim().length === 0) {
     res.status(400).json({
       error: {
-        message: "你没有输入任何内容",
+        message: "Please enter a valid input",
       },
     });
     return;
   }
 
-  try {
-    // In case the input is too long, we will only use the last 4096 tokens.
-    const messages: OpenAI.ChatCompletionMessage[] = [
-      ...req.body.history,
-      generatePrompt(input),
-    ];
+  const options = {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${process.env.OPENAI_API_KEY ?? ""}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      model:
+        process.env.OPENAI_IMAGE_MODEL_NAME ??
+        "stabilityai/stable-diffusion-3-5-large",
+      prompt: req.body.input || "",
+      negative_prompt: "low quality, low resolution, watermark",
+      image_size: "768x512",
+      batch_size: 1,
+      num_inference_steps: 50,
+      guidance_scale: 10,
+    }),
+  };
 
-    const completion = await openai.chat.completions.create({
-      model: process.env.OPENAI_MODEL_NAME ?? "gpt-4o",
-      messages,
-      temperature: parseFloat(req.body.temperature) || 0.6,
-    });
+  try {
+    const result = await fetch(
+      `${process.env.OPENAI_BASE_URL ?? "https://api.openai.com/v1"}/images/generations`,
+      options,
+    ).then((res) => res.json());
 
     // Comment them out if you do not need logging
     console.info(input);
-    console.info(completion.choices[0]);
-    res
-      .status(200)
-      .json({ result: completion.choices[0].message?.content });
+    console.info(options);
+    console.info(result);
+    res.status(200).json(result);
   } catch (error) {
     // Consider adjusting the error handling logic for your use case
     if (error.response) {

@@ -26,7 +26,7 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
   let counter = 0;
 
   const res = await fetch(
-    `${process.env.OPENAI_BASE_URL ?? "https://api.openai.com"}/chat/completions`,
+    `${process.env.OPENAI_BASE_URL ?? "https://api.openai.com/v1"}/chat/completions`,
     {
       headers: {
         "Content-Type": "application/json",
@@ -43,6 +43,7 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
         onEvent: (event: EventSourceMessage) => {
         if (event.event === "event") {
           const data = event.data;
+          console.log(data); // For debugging
           // https://beta.openai.com/docs/api-reference/completions/create#completions/create-stream
           if (data === "[DONE]") {
             controller.close();

@@ -27,7 +27,7 @@ My ChatGPT的作者[Gabriel Wu](https://github.com/lucifer1004)已将源代码�
 
 现在，你可以：
 
-- [使用Unsplash API获取随机图片](/demos/unsplash)
+- [生成随机图片](/demos/image)
 
 或者：
 `}
